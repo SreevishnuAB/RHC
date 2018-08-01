@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TextInput, View, Image, Button, Text, Dimensions, Modal } from 'react-native';
 import ImageZoom from 'react-native-image-pan-zoom';
-import styles from './CSS/css';
+import styles from '../CSS/css';
 
 export default class DemoPage extends React.Component{
   static navigationOptions = {
@@ -41,8 +41,7 @@ export default class DemoPage extends React.Component{
           cropWidth={Dimensions.get('window').width}
           cropHeight={Dimensions.get('window').height}
           imageWidth={Dimensions.get('window').width}
-          imageHeight={Dimensions.get('window').width}
-          >
+          imageHeight={Dimensions.get('window').width}>
             <Image
               style={{height:Dimensions.get('window').width,width:Dimensions.get('window').width,flexDirection: 'column',justifyContent: 'center',alignItems: 'center'}}
               source={{uri:this.state.url}}/>
@@ -56,13 +55,12 @@ return (
           style={styles.tb}
           onChangeText={(text)=>{this.setState({imgNum:text})}}
           placeholder='Enter image number'
-          keyboardType={'numeric'}
-          />
-          <Button
-            style={styles.button}
-            onPress={()=>{this._handlePress();}}
-            title='Submit'/>
-              {img}
+          keyboardType={'numeric'}/>
+        <Button
+          style={styles.button}
+          onPress={()=>{this._handlePress();}}
+          title='Submit'/>
+        {img}
       </View>
     );
   }

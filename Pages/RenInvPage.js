@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Picker, Text, View, Button } from 'react-native';
-import styles from './CSS/css';
+import styles from '../CSS/css';
 import RNPickerSelect from 'react-native-picker-select';
+import { observer } from 'mobx-react';
+import DataStore from '../Store/DataStore';
 
+@observer
 export default class RenInvPage extends React.Component{
     static navigationOptions = {
         title: 'Renal Involvement',
@@ -11,12 +14,6 @@ export default class RenInvPage extends React.Component{
     constructor(props){
         super(props);
         this.state = {RenInv:undefined,
-            items:[
-                {label:'No',value:'0',},
-                {label:'Microalbumineuria', value:'1',},
-                {label:'Creatinine > 1.6', value:'2',},
-                {label:'Creatinine > 4', value:'3',},
-            ],
         };
     }
 
@@ -28,19 +25,35 @@ export default class RenInvPage extends React.Component{
         return true;
     }
     
+    _handlePress = () => {
+        if(this._validateInput()){
+            DataStore.updateRenInv(this.state.RenInv);
+            this.props.navigation.navigate('Smoking');
+        }
+    }
+
     render(){
-        const text=<Text></Text>;
+        const items = [
+            {label:'No',value:'0',},
+            {label:'Microalbumineuria', value:'1',},
+            {label:'Creatinine > 1.6', value:'2',},
+            {label:'Creatinine > 4', value:'3',},
+        ];
         return(
-            <View style={styles.container}>
-            <RNPickerSelect 
-                placeholder={{
-                    label:'Renal Involvement',
-                    value:null,
-                    }}
-                items={this.state.items}
-                value={this.state.RenInv}
-                onValueChange={(value) => {this.setState({RenInv:value});}} />
-            <Button style={styles.button} title="Next" onPress={() => {if(this._validateInput())this.props.navigation.navigate('Smoking')}}/>
+            <View 
+                style={styles.container}>
+                <RNPickerSelect 
+                    placeholder={{
+                        label:'Renal Involvement',
+                        value:null,
+                        }}
+                    items={items}
+                    value={this.state.RenInv}
+                    onValueChange={(value) => this.setState({RenInv:value})} />
+                <Button
+                    style={styles.button}
+                    title="Next"
+                    onPress={() => this._handlePress()}/>
             </View>
         );
     }

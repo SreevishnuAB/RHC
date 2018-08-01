@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import 'es6-symbol/implement';
 import { createStackNavigator } from 'react-navigation';
 import BRSPage from './Pages/BRSPage';
 import DemoPage from './Pages/DemoPage' ;
@@ -8,7 +9,8 @@ import RenInvPage from './Pages/RenInvPage';
 import SmokingPage from './Pages/SmokingPage';
 import DurationPage from './Pages/DurationPage';
 import HDStrokePage from './Pages/HDStrokePage';
-import FollowUpPage from './Pages/FollowUpPage'
+import FollowUpPage from './Pages/FollowUpPage';
+import DisplayPage from './Pages/DisplayPage';
 
 const Root = createStackNavigator({
   BRS: BRSPage,
@@ -19,6 +21,7 @@ const Root = createStackNavigator({
   Duration:DurationPage,
   HDStroke:HDStrokePage,
   Follow_Up:FollowUpPage,
+  Display:DisplayPage,
   Image: DemoPage,
   },
   {
