@@ -43,6 +43,7 @@ export default class DurationPage extends React.Component{
             <View
                 style={styles.container}>
                 <RNPickerSelect 
+                    style={{...styles}}
                     placeholder={{
                         label:'Duration',
                         value:null,

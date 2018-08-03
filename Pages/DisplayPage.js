@@ -12,13 +12,13 @@ export default class DisplayPage extends React.Component{
     return(
       <View 
         style={styles.container}>
-        <Text>HBA1C: {DataStore.hlthparams.hba1c}</Text>
-        <Text>Serum Cholestrol: {DataStore.hlthparams.serchol}</Text>
-        <Text>Renal Involvement: {DataStore.hlthparams.reninv}</Text>
-        <Text>Smoking: {DataStore.hlthparams.smoke}</Text>
-        <Text>Duration: {DataStore.hlthparams.dur}</Text>
-        <Text>Coronary Artery Disease/Stroke: {DataStore.hlthparams.cordis}</Text>
-        <Text>Good follow-up: {DataStore.hlthparams.gfu}</Text>
+        <Text style={styles.text}>HBA1C: {DataStore.hlthparams.hba1c}</Text>
+        <Text style={styles.text}>Serum Cholestrol: {DataStore.hlthparams.serchol}</Text>
+        <Text style={styles.text}>Renal Involvement: {DataStore.hlthparams.reninv}</Text>
+        <Text style={styles.text}>Smoking: {DataStore.hlthparams.smoke}</Text>
+        <Text style={styles.text}>Duration: {DataStore.hlthparams.dur}</Text>
+        <Text style={styles.text}>Coronary Artery Disease/Stroke: {DataStore.hlthparams.cordis}</Text>
+        <Text style={styles.text}>Good follow-up: {DataStore.hlthparams.gfu}</Text>
         <Button
           style={styles.button}
           title="Next"

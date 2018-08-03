@@ -11,7 +11,7 @@ export default class BRSPage extends React.Component{
     return(
       <View
         style={styles.container}>
-        <Text>Base Retina Score *TODO* </Text>
+        <Text style={styles.text}>Base Retina Score *TODO* </Text>
         <Button
           style={styles.button}
           title="Next" 

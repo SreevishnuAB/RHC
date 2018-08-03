@@ -41,6 +41,7 @@ export default class HDStrokePage extends React.Component{
             <View
                 style={styles.container}>
                 <RNPickerSelect 
+                    style={{...styles}}
                     placeholder={{
                         label:'History of Coronary Artery Disease/Stroke',
                         value:null,

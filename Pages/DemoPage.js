@@ -33,6 +33,7 @@ export default class DemoPage extends React.Component{
   render() {
     const img= (this.state.clicked)?(
       <Modal
+          style={{backgroundColor:'#000000'}}
           animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}

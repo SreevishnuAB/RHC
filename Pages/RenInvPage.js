@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Picker, Text, View, Button } from 'react-native';
+import { View, Button, StyleSheet } from 'react-native';
 import styles from '../CSS/css';
 import RNPickerSelect from 'react-native-picker-select';
 import { observer } from 'mobx-react';
@@ -43,6 +43,7 @@ export default class RenInvPage extends React.Component{
             <View 
                 style={styles.container}>
                 <RNPickerSelect 
+                    style={{...styles}}
                     placeholder={{
                         label:'Renal Involvement',
                         value:null,
@@ -51,7 +52,7 @@ export default class RenInvPage extends React.Component{
                     value={this.state.RenInv}
                     onValueChange={(value) => this.setState({RenInv:value})} />
                 <Button
-                    style={styles.button}
+                    style= {styles.button}
                     title="Next"
                     onPress={() => this._handlePress()}/>
             </View>

@@ -41,6 +41,7 @@ export default class FollowUpPage extends React.Component{
             <View
                 style={styles.container}>
                 <RNPickerSelect 
+                    style={{...styles}}
                     placeholder={{
                         label:'Good Follow-up, Once in 3 Months',
                         value:null,

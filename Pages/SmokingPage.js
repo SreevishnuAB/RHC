@@ -44,6 +44,7 @@ export default class SmokingPage extends React.Component{
             <View
                 style={styles.container}>
                 <RNPickerSelect 
+                    style={{...styles}}
                     placeholder={{
                         label:'Smoking',
                         value:null,
