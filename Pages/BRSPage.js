@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity , Image , Dimensions , Modal} from 'react-native';
+import { View, Text, TouchableOpacity , Image , Dimensions , Modal } from 'react-native';
 import GridView from 'react-native-super-grid';
 import ImageZoom from 'react-native-image-pan-zoom';
 import { observer } from 'mobx-react';
@@ -47,7 +47,7 @@ export default class BRSPage extends React.Component{
                 this._setModalVisible(!this.state.modalVisible);
                 }}>
               <Image
-                style={{height:Dimensions.get('window').height/5,width:Dimensions.get('window').height/5,borderColor:'#626262',borderWidth:1}}
+                style={styles.thumbs}
                 source={{uri:item.src}}/>  
             </TouchableOpacity>
           );
@@ -55,19 +55,21 @@ export default class BRSPage extends React.Component{
       />
   
         <Modal
-          animationType="slide"
+          animationType="fade"
           transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => {this._setModalVisible(!this.state.modalVisible)}}>
+          <View style={{backgroundColor:'#000000'}}>
            <ImageZoom
               cropWidth={Dimensions.get('window').width}
               cropHeight={Dimensions.get('window').height}
               imageWidth={Dimensions.get('window').width}
               imageHeight={Dimensions.get('window').width}>
                 <Image
-                  style={{height:Dimensions.get('window').width,width:Dimensions.get('window').width,flexDirection: 'column',justifyContent: 'center',alignItems: 'center'}}
+                  style={styles.images}
                   source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+this.state.imgId+'.jpg'}}/>
             </ImageZoom>
+            </View>
           </Modal>
       </View>
     );
