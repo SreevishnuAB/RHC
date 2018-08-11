@@ -6,4 +6,4 @@
 4. [MobX](https://mobx.js.org/) (v4.0.0)
 5. [MobX React](https://github.com/mobxjs/mobx-react)
 6. [ES6 Symbols]
-7. [React-Native-Image-Grid](https://www.npmjs.com/package/react-native-image-grid)
+7. [react-native-super-grid](https://github.com/saleel/react-native-super-grid)
