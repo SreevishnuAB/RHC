@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { TextInput, View, Image, Button, Text, Dimensions, Modal } from 'react-native';
+import { TouchableOpacity, View, Image, Dimensions, Modal } from 'react-native';
 import ImageZoom from 'react-native-image-pan-zoom';
 import styles from '../CSS/css';
+import DataStore from '../Store/DataStore';
 
 export default class DemoPage extends React.Component{
   static navigationOptions = {
@@ -9,7 +10,7 @@ export default class DemoPage extends React.Component{
   };
   constructor(props){
     super(props);
-    this.state = {imgNum:'',clicked:false,url:'',modalVisible:false};
+    this.state = {imgNum:'',url:'',modalVisible:false};
   }
 
   _setModalVisible = (visible) => {
@@ -25,13 +26,12 @@ export default class DemoPage extends React.Component{
 
   
   _handlePress = () =>{
-    this.setState({clicked:true});
     this._displayImage();
     this._setModalVisible(!this.state.modalVisible);
   }
 
   render() {
-    const img= (this.state.clicked)?(
+    const img= (
       <Modal
           style={{backgroundColor:'#000000'}}
           animationType="slide"
@@ -45,11 +45,10 @@ export default class DemoPage extends React.Component{
           imageHeight={Dimensions.get('window').width}>
             <Image
               style={{height:Dimensions.get('window').width,width:Dimensions.get('window').width,flexDirection: 'column',justifyContent: 'center',alignItems: 'center'}}
-              source={{uri:this.state.url}}/>
+              source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+DataStore.imageSelected.id+'.jpg'}}/>
         </ImageZoom>
-      </Modal>):
-      <Text></Text>;  
-return (
+      </Modal>);  
+/*return (
       <View
         style={styles.container}>
         <TextInput
@@ -62,6 +61,19 @@ return (
           onPress={()=>{this._handlePress();}}
           title='Submit'/>
         {img}
+      </View>
+    );*/
+    return(
+      <View style={styles.container}>
+      <TouchableOpacity
+        onPress={() => {
+          this._setModalVisible(!this.state.modalVisible);
+          }}>
+           <Image
+            style={{marginTop:100,height:Dimensions.get('window').width,width:Dimensions.get('window').width,flexDirection: 'column',justifyContent: 'center',alignItems: 'center'}}
+            source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+DataStore.imageSelected.id+'.jpg'}}/>  
+      </TouchableOpacity>
+      {img}
       </View>
     );
   }

@@ -1,7 +1,11 @@
 import { observable, action, decorate } from 'mobx';
 
 class DataStore{
-    hlthparams = {
+    //to store image selected by user
+    imageSelected = {id:''};
+    
+    //to store health parameters
+    hlthParams = {
         hba1c:'',
         serchol:'',
         reninv:'',
@@ -9,38 +13,43 @@ class DataStore{
         dur:'',
         cordis:'',
         gfu:'',
-    }
+    };
     
+    updateImageSelected(imgNum){
+        this.imageSelected.id=imgNum;
+    }
+
     updateHBA1C(val){
-        this.hlthparams.hba1c=val;
+        this.hlthParams.hba1c=val;
     }
 
     updateSerChol(val){
-        this.hlthparams.serchol=val;
+        this.hlthParams.serchol=val;
     }
 
     updateRenInv(val){
-        this.hlthparams.reninv=val;
+        this.hlthParams.reninv=val;
     }
 
     updateSmoke(val){
-        this.hlthparams.smoke=val;
+        this.hlthParams.smoke=val;
     }
 
     updateDur(val){
-        this.hlthparams.dur=val;
+        this.hlthParams.dur=val;
     }
 
     updateHisCorDis(val){
-        this.hlthparams.cordis=val;
+        this.hlthParams.cordis=val;
     }
 
     updateRegFollowUp(val){
-        this.hlthparams.gfu=val;
+        this.hlthParams.gfu=val;
     }
 }
 
 decorate(DataStore,{
+    imageSelected:observable,
     hlthparams:observable,
     updateHBA1C:action,
     updateSerChol:action,
@@ -48,8 +57,8 @@ decorate(DataStore,{
     updateSmoke:action,
     updateDur:action,
     updateHisCorDis:action,
-    updateRegFollowUp:action
-
+    updateRegFollowUp:action,
+    updateImageSelected:action
 });
 
 export default new DataStore();

@@ -12,13 +12,14 @@ export default class DisplayPage extends React.Component{
     return(
       <View 
         style={styles.container}>
-        <Text style={styles.text}>HBA1C: {DataStore.hlthparams.hba1c}</Text>
-        <Text style={styles.text}>Serum Cholestrol: {DataStore.hlthparams.serchol}</Text>
-        <Text style={styles.text}>Renal Involvement: {DataStore.hlthparams.reninv}</Text>
-        <Text style={styles.text}>Smoking: {DataStore.hlthparams.smoke}</Text>
-        <Text style={styles.text}>Duration: {DataStore.hlthparams.dur}</Text>
-        <Text style={styles.text}>Coronary Artery Disease/Stroke: {DataStore.hlthparams.cordis}</Text>
-        <Text style={styles.text}>Good follow-up: {DataStore.hlthparams.gfu}</Text>
+        <Text style={styles.text}>Image Selected: {DataStore.imageSelected.id}</Text>
+        <Text style={styles.text}>HBA1C: {DataStore.hlthParams.hba1c}</Text>
+        <Text style={styles.text}>Serum Cholestrol: {DataStore.hlthParams.serchol}</Text>
+        <Text style={styles.text}>Renal Involvement: {DataStore.hlthParams.reninv}</Text>
+        <Text style={styles.text}>Smoking: {DataStore.hlthParams.smoke}</Text>
+        <Text style={styles.text}>Duration: {DataStore.hlthParams.dur}</Text>
+        <Text style={styles.text}>Coronary Artery Disease/Stroke: {DataStore.hlthParams.cordis}</Text>
+        <Text style={styles.text}>Good follow-up: {DataStore.hlthParams.gfu}</Text>
         <Button
           style={styles.button}
           title="Next"
