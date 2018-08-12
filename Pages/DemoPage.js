@@ -66,13 +66,13 @@ export default class DemoPage extends React.Component{
       </View>
     );*/
     return(
-      <View style={styles.container}>
+      <View style={{backgroundColor: '#000000',height:Dimensions.get('window').height}}>
       <TouchableOpacity
         onPress={() => {
           this._setModalVisible(!this.state.modalVisible);
           }}>
            <Image
-            style={styles.images}
+            style={{marginTop:60,height:Dimensions.get('window').width,width:Dimensions.get('window').width}}
             source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+DataStore.imageSelected.id+'.jpg'}}/>  
       </TouchableOpacity>
       {img}

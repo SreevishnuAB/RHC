@@ -26,6 +26,12 @@ const Root = createStackNavigator({
   },
   {
     initialRouteName: 'BRS',
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#3d3d3d',
+      },
+      headerTintColor: '#ffffff',
+    }
   }
 );
 
