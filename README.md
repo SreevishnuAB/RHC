@@ -7,4 +7,3 @@
 5. [MobX React](https://github.com/mobxjs/mobx-react)
 6. [ES6 Symbols]
 7. [react-native-super-grid](https://github.com/saleel/react-native-super-grid)
-8. [react-native-modal](https://github.com/react-native-community/react-native-modal)
