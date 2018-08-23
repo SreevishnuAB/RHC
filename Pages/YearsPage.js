@@ -5,28 +5,19 @@ import DataStore from '../Store/DataStore';
 import styles from '../CSS/css';
 
 @observer
-export default class HBA1CPage extends React.Component{
+export default class YearsPage extends React.Component{
     static navigationOptions = {
-        title: 'HBA1C',
+        title: 'Years',
       };
+      
     constructor(props){
         super(props);
-        this.state = {HBA1C:''};
-    }
-
-    _validateInput = () =>{
-        if(this.state.HBA1C == '' || this.state.HBA1C<5){
-            alert("Invalid input");
-            return false;
-        }
-        return true;
+        this.state = {Years:''};
     }
 
     _handlePress = () =>{
-        if(this._validateInput()){
-            DataStore.updateHBA1C(parseFloat(this.state.HBA1C));
-            this.props.navigation.navigate('SerChol');
-        }
+        DataStore.updateNoOfYears(this.state.Years);
+        this.props.navigation.navigate('Image');
     }
 
     render(){
@@ -36,8 +27,8 @@ export default class HBA1CPage extends React.Component{
                 <TextInput
                     style={styles.tb}
                     keyboardType={"numeric"}
-                    placeholder="Enter HBA1C value"
-                    onChangeText={(text) => this.setState({HBA1C : text})}/>
+                    placeholder="Enter number of years"
+                    onChangeText={(text) => this.setState({Years : parseInt(text)})}/>
                 <Button                
                     style={styles.button}
                     title="Next"

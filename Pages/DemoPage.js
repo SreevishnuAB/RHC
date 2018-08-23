@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, View, Image, Dimensions, Modal } from 'react-native';
+import { TouchableOpacity, View, Image, Dimensions, Modal , Button} from 'react-native';
 import ImageZoom from 'react-native-image-pan-zoom';
 import styles from '../CSS/css';
+import {observer} from 'mobx-react';
 import DataStore from '../Store/DataStore';
 
+@observer
 export default class DemoPage extends React.Component{
   static navigationOptions = {
-    title: 'Image Screen',
+    title: 'Image',
   };
   constructor(props){
     super(props);
@@ -24,13 +26,12 @@ export default class DemoPage extends React.Component{
       this.setState({url:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+this.state.imgNum+'.jpg'});
   }
 
-  
   _handlePress = () =>{
-    this._displayImage();
-    this._setModalVisible(!this.state.modalVisible);
+    this.props.navigation.navigate('Display');
   }
 
   render() {
+    DataStore.generateFutureRetina();
     const img= (
       <Modal
         animationType="fade"
@@ -46,7 +47,7 @@ export default class DemoPage extends React.Component{
           imageHeight={Dimensions.get('window').width}>
             <Image
               style={styles.images}
-              source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+DataStore.imageSelected.id+'.jpg'}}/>
+              source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+DataStore.futureRetina.image+'.jpg'}}/>
         </ImageZoom>
         </View>
       </Modal>);  
@@ -66,17 +67,22 @@ export default class DemoPage extends React.Component{
       </View>
     );*/
     return(
-      <View style={{backgroundColor: '#000000',height:Dimensions.get('window').height}}>
+      <View style={{backgroundColor: '#000000',height:Dimensions.get('window').height,justifyContent: 'center',alignItems: 'center'}}>
       <TouchableOpacity
         onPress={() => {
           this._setModalVisible(!this.state.modalVisible);
           }}>
            <Image
-            style={{marginTop:60,height:Dimensions.get('window').width,width:Dimensions.get('window').width}}
-            source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+DataStore.imageSelected.id+'.jpg'}}/>  
+            style={{height:Dimensions.get('window').width,width:Dimensions.get('window').width}}
+            source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+DataStore.futureRetina.image+'.jpg'}}/>  
       </TouchableOpacity>
+      <Button
+          style={styles.button}
+          onPress={()=>{this._handlePress();}}
+          title='Edit Parameters'/>
       {img}
       </View>
     );
   }
 }
+

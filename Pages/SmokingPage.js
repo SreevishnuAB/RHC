@@ -35,9 +35,9 @@ export default class SmokingPage extends React.Component{
     render(){
 
         const items = [
-            {label:'No',value:'0',},
-            {label:'Yes', value:'1',},
-            {label:'Related Lung Disease', value:'2',},
+            {label:'No',value:0,},
+            {label:'Yes', value:1,},
+            {label:'Related Lung Disease', value:2,},
         ];
 
         return(

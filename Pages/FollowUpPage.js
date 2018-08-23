@@ -28,14 +28,14 @@ export default class FollowUpPage extends React.Component{
     _handlePress = () => {
         if(this._validateInput()){
             DataStore.updateRegFollowUp(this.state.FollowUp);
-            this.props.navigation.navigate('Display');
+            this.props.navigation.navigate('Years');
         }
     }
 
     render(){
         const items = [
-            {label:'No',value:'5',},
-            {label:'Yes', value:'0',},
+            {label:'No',value:5,},
+            {label:'Yes', value:0,},
         ];
         return(
             <View

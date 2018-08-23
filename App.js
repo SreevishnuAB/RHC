@@ -11,16 +11,18 @@ import DurationPage from './Pages/DurationPage';
 import HDStrokePage from './Pages/HDStrokePage';
 import FollowUpPage from './Pages/FollowUpPage';
 import DisplayPage from './Pages/DisplayPage';
+import YearsPage from './Pages/YearsPage'
 
 const Root = createStackNavigator({
   BRS: BRSPage,
   HBA1C: HBA1CPage,
   SerChol: SerumCholPage,
   RenInv: RenInvPage,
-  Smoking:SmokingPage,
-  Duration:DurationPage,
-  HDStroke:HDStrokePage,
-  Follow_Up:FollowUpPage,
+  Smoking: SmokingPage,
+  Duration: DurationPage,
+  HDStroke: HDStrokePage,
+  Follow_Up: FollowUpPage,
+  Years: YearsPage,
   Display:DisplayPage,
   Image: DemoPage,
   },

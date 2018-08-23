@@ -33,10 +33,10 @@ export default class DurationPage extends React.Component{
 
     render(){
         const items = [
-            {label:'5 - 10 years',value:'2',},
-            {label:'11 - 15 years', value:'1.5',},
-            {label:'16 - 20 years', value:'1',},
-            {label:'> 20 years', value:'0.5',},
+            {label:'5 - 10 years',value:2,},
+            {label:'11 - 15 years', value:1.5,},
+            {label:'16 - 20 years', value:1,},
+            {label:'> 20 years', value:0.5,},
         ];
 
         return(

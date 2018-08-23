@@ -34,10 +34,10 @@ export default class RenInvPage extends React.Component{
 
     render(){
         const items = [
-            {label:'No',value:'0',},
-            {label:'Microalbumineuria', value:'1',},
-            {label:'Creatinine > 1.6', value:'2',},
-            {label:'Creatinine > 4', value:'3',},
+            {label:'No',value:0,},
+            {label:'Microalbumineuria', value:1,},
+            {label:'Creatinine > 1.6', value:2,},
+            {label:'Creatinine > 4', value:3,},
         ];
         return(
             <View 

@@ -37,9 +37,6 @@ const styles = StyleSheet.create({
     images: {
       height:Dimensions.get('window').width,
       width:Dimensions.get('window').width,
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
     },
     thumbs: {
       height:Dimensions.get('window').height/5,

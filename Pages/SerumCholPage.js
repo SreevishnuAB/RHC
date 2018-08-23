@@ -17,7 +17,7 @@ export default class SerumCholPage extends React.Component{
 
     _handlePress = () => {
         if(this._validateInput()){
-            DataStore.updateSerChol(this.state.SC);
+            DataStore.updateSerChol(parseFloat(this.state.SC));
             this.props.navigation.navigate('RenInv');
         }
     }
