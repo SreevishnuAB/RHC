@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RNPickerSelect from 'react-native-picker-select';
 import { observer } from 'mobx-react';
-import { View , TextInput , Text , Button} from 'react-native';
+import { ScrollView , View , TextInput , Text , Button} from 'react-native';
 import styles from '../CSS/css';
 import DataStore from '../Store/DataStore';
 
@@ -40,8 +40,10 @@ export default class DisplayPage extends React.Component{
       ]
     }
     return(
-        <View 
-          style={{justifyContent: 'space-evenly',flex:1,backgroundColor: '#000000',}}>
+      <View style={{justifyContent: 'space-between',flex:1,backgroundColor: '#000000',}}>
+        <ScrollView 
+          style={{flex:1,backgroundColor: '#000000',}}
+          keyboardDismissMode='on-drag'>
             <Text style={styles.text}>HBA1C:</Text>
             <TextInput
               style={styles.tb}
@@ -54,6 +56,13 @@ export default class DisplayPage extends React.Component{
               keyboardType={"numeric"}
               placeholder={DataStore.hlthParams.serchol.toString()}
               onChangeText={(text) => DataStore.updateSerChol(text)}/>
+            <Text style={styles.text}>Number of years:</Text>
+            <TextInput
+              style={styles.tb}
+              keyboardType={"numeric"}
+              placeholder={DataStore.hlthParams.years.toString()}
+              onChangeText={(text) => DataStore.updateNoOfYears(parseInt(text))}/>
+            <Text style={styles.text}>Renal Involvement:</Text>
             <RNPickerSelect 
               style={{...styles}}
               placeholder={{
@@ -63,6 +72,7 @@ export default class DisplayPage extends React.Component{
               items={items.RenInv}
               value={DataStore.hlthParams.reninv}
               onValueChange={(value) => DataStore.updateRenInv(value)} />
+            <Text style={styles.text}>Smoking:</Text>
             <RNPickerSelect 
               style={{...styles}}
               placeholder={{
@@ -72,6 +82,7 @@ export default class DisplayPage extends React.Component{
               items={items.Smoking}
               value={DataStore.hlthParams.smoke}
               onValueChange={(value) => DataStore.updateSmoke(value)} />
+            <Text style={styles.text}>Duration:</Text>
             <RNPickerSelect 
               style={{...styles}}
               placeholder={{
@@ -81,6 +92,7 @@ export default class DisplayPage extends React.Component{
               items={items.Duration}
               value={DataStore.hlthParams.dur}
               onValueChange={(value) => DataStore.updateDur(value)} />
+            <Text style={styles.text}>History of Coronary Artery Disease/Stroke:</Text>
             <RNPickerSelect 
               style={{...styles}}
               placeholder={{
@@ -90,6 +102,7 @@ export default class DisplayPage extends React.Component{
               items={items.HDStroke}
               value={DataStore.hlthParams.cordis}
               onValueChange={(value) => DataStore.updateHisCorDis(value)} />
+            <Text style={styles.text}>Good Follow-up, Once in 3 Months:</Text>
             <RNPickerSelect 
               style={{...styles}}
               placeholder={{
@@ -99,18 +112,6 @@ export default class DisplayPage extends React.Component{
               items={items.FollowUp}
               value={DataStore.hlthParams.gfu}
               onValueChange={(value) => DataStore.updateRegFollowUp(value)} />
-            <Text style={styles.text}>Number of years:</Text>
-            <TextInput
-              style={styles.tb}
-              keyboardType={"numeric"}
-              placeholder={DataStore.hlthParams.years.toString()}
-              onChangeText={(text) => DataStore.updateNoOfYears(parseInt(text))}/>
-            <Button
-              style={styles.button}
-              title="Done"
-              onPress={()=>{
-                DataStore.generateFutureRetina();
-                this.props.navigation.navigate('Image');}} />
 {/*          <Text style={styles.touchable}>Image Selected: {DataStore.imageSelected.id}</Text>          
           <Button
             style={styles.button}
@@ -128,7 +129,17 @@ export default class DisplayPage extends React.Component{
             style={styles.button}
             title="Next"
             onPress={() => this.props.navigation.navigate('BRS')} />*/}
+        </ScrollView>
+        <View style={{flex:0.1,backgroundColor:'#000000'}}>
+          <Button
+            style={styles.button}
+            title="Done"
+            onPress={()=>{
+              DataStore.generateFutureRetina();
+              this.props.navigation.navigate('Image')
+            }} />
         </View>
+      </View>
     );
   }
 }

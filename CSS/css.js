@@ -15,8 +15,7 @@ const styles = StyleSheet.create({
       borderWidth: 1,
     },
     button: {
-      flex:1,
-      marginTop:'10%',
+      marginTop:10,
       width:100,
       height:50,
     },
@@ -33,6 +32,7 @@ const styles = StyleSheet.create({
     },
     text: {
       color: '#ffffff',
+      paddingTop:20,
     },
     images: {
       height:Dimensions.get('window').width,

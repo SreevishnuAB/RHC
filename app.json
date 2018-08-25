@@ -1,5 +1,15 @@
 {
   "expo": {
-    "sdkVersion": "27.0.0"
+    "name": "RHC",
+    "version":"1.0.0_a",
+    "sdkVersion": "27.0.0",
+    "splash": {
+      "image": "./Assets/rhc.png",
+      "backgroundColor": "#000000"
+    },
+    "icon": "./Assets/rhcicon.png",
+    "android": {
+      "package":"com.rhcdev.rhc"
+    }
   }
 }
