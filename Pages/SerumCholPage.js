@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextInput, View, Button } from 'react-native';
+import { TextInput, View, Button , Text} from 'react-native';
 import styles from '../CSS/css';
 import {  observer } from 'mobx-react';
 import DataStore from '../Store/DataStore';
@@ -17,7 +17,7 @@ export default class SerumCholPage extends React.Component{
 
     _handlePress = () => {
         if(this._validateInput()){
-            DataStore.updateSerChol(this.state.SC);
+            DataStore.updateSerChol(parseFloat(this.state.SC));
             this.props.navigation.navigate('RenInv');
         }
     }
@@ -43,6 +43,7 @@ export default class SerumCholPage extends React.Component{
                     style={styles.button}
                     title="Next"
                     onPress={() => this._handlePress()}/>
+                <Text style={styles.text}>Serum Cholestrol: {this.state.SC}</Text>
             </View>
         );
     }

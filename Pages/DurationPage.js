@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Button } from 'react-native';
+import { View, Button , Text} from 'react-native';
 import { observer } from 'mobx-react';
 import DataStore from '../Store/DataStore';
 import styles from '../CSS/css';
@@ -13,7 +13,7 @@ export default class DurationPage extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = {Duration:undefined,};
+        this.state = {Duration:undefined,DurLbl:''};
     }
 
     _handlePress = () => {
@@ -31,12 +31,25 @@ export default class DurationPage extends React.Component{
         return true;
     }
 
+    _getDurationLabel = (value) => {
+        switch(value){
+            case 2:
+                return '5 - 10 years';
+            case 1.5:
+                return '11 - 15 years';
+            case 1:
+                return '16 - 20 years';
+            case 0.5:
+                return '> 20 years';
+        }
+    }
+
     render(){
         const items = [
-            {label:'5 - 10 years',value:'2',},
-            {label:'11 - 15 years', value:'1.5',},
-            {label:'16 - 20 years', value:'1',},
-            {label:'> 20 years', value:'0.5',},
+            {label:'5 - 10 years',value:2,},
+            {label:'11 - 15 years', value:1.5,},
+            {label:'16 - 20 years', value:1,},
+            {label:'> 20 years', value:0.5,},
         ];
 
         return(
@@ -50,11 +63,12 @@ export default class DurationPage extends React.Component{
                         }}
                     items={items}
                     value={this.state.Duration}
-                    onValueChange={(value) => this.setState({Duration:value})} />
+                    onValueChange={(value) => this.setState({Duration:value,DurLbl:this._getDurationLabel(value)})} />
                 <Button
                     style={styles.button}
                     title="Next"
                     onPress={() => this._handlePress()}/>
+                <Text style={styles.text}>Duration: {this.state.DurLbl}</Text>
             </View>
         );
     }

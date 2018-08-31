@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet , Dimensions } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
@@ -15,9 +15,8 @@ const styles = StyleSheet.create({
       borderWidth: 1,
     },
     button: {
-      flex:1,
-      marginTop:'10%',
-      width:100,
+      marginHorizontal:10,
+      width:'200px',
       height:50,
     },
     picker: {
@@ -33,6 +32,17 @@ const styles = StyleSheet.create({
     },
     text: {
       color: '#ffffff',
+      paddingTop:20,
+    },
+    images: {
+      height:Dimensions.get('window').width,
+      width:Dimensions.get('window').width,
+    },
+    thumbs: {
+      height:Dimensions.get('window').height/5,
+      width:Dimensions.get('window').height/5,
+      borderColor:'#626262',
+      borderWidth:1,
     },
   });
 

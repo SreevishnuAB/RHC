@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Picker, Text, View, Button } from 'react-native';
+import { Text, View, Button } from 'react-native';
 import styles from '../CSS/css';
 import RNPickerSelect from 'react-native-picker-select';
 import { observer } from 'mobx-react';
@@ -13,8 +13,7 @@ export default class SmokingPage extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = {Smoking:undefined,
-        };
+        this.state = {Smoking:undefined,SmokingLbl:''};
     }
 
     _validateInput = () =>{
@@ -32,12 +31,23 @@ export default class SmokingPage extends React.Component{
         }
     }
 
+    _getSmokingLabel = (value) => {
+        switch(value){
+            case 0:
+                return 'No';
+            case 1:
+                return 'Yes';
+            case 2:
+                return 'Related Lung Disease';
+        }
+    }
+
     render(){
 
         const items = [
-            {label:'No',value:'0',},
-            {label:'Yes', value:'1',},
-            {label:'Related Lung Disease', value:'2',},
+            {label:'No',value:0,},
+            {label:'Yes', value:1,},
+            {label:'Related Lung Disease', value:2,},
         ];
 
         return(
@@ -51,11 +61,12 @@ export default class SmokingPage extends React.Component{
                     }}
                     items={items}
                     value={this.state.Smoking}
-                    onValueChange={(value) => this.setState({Smoking:value})} />
+                    onValueChange={(value) => this.setState({Smoking:value,SmokingLbl:this._getSmokingLabel(value)})} />
                 <Button
                     style={styles.button}
                     title="Next" 
                     onPress={() => {this._handlePress()}}/>
+                <Text style={styles.text}>Smoking: {this.state.SmokingLbl}</Text>
             </View>
         );
     }

@@ -1,62 +1,77 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity , Image , Dimensions} from 'react-native';
-import PhotoGrid from 'react-native-image-grid';
+import { View, Text, TouchableOpacity , Image , Dimensions , Modal } from 'react-native';
+import GridView from 'react-native-super-grid';
+import ImageZoom from 'react-native-image-pan-zoom';
+import { observer } from 'mobx-react';
+import DataStore from '../Store/DataStore';
 import styles from '../CSS/css';
 
+@observer
 export default class BRSPage extends React.Component{
   static navigationOptions = {
     title: 'Base Retina Score',
   };
-  
-  constructor(props) {
+
+  constructor(props){
     super(props);
-    this.state = { items: [] };
+    this.state = {modalVisible: false, imgId:''};
   }
 
-  componentDidMount() {
-    let items = Array.apply(null, Array(100)).map((v, i) => {
-      return { name: 'img'+(i+1)+'.jpg',id: i, src: 'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+(i+1)+'.jpg' }
-    });
-    this.setState({ items });
+  _setModalVisible = (visible) => {
+    this.setState({modalVisible: visible});
   }
 
-  _handlePress = () => {
+  _handlePress = (id) => {
+    DataStore.updateImageSelected(id);
     this.props.navigation.navigate('HBA1C');
-  }
-  renderItem(item, itemSize) {
-    return(
-      <TouchableOpacity
-        key = { item.id }
-        style = {{ width: itemSize, height: itemSize}}>
-        <Image
-          onPress = {this._handlePress}
-          resizeMode = "cover"
-          style = {{ flex: 1 }}
-          source = {{ uri: item.src }}
-        />
-      </TouchableOpacity>
-    )
   }
 
   render(){
-/*    return(
-      <View
-        style={styles.container}>
-        <Text style={styles.text}>Base Retina Score *TODO* </Text>
-        <Button
-          style={styles.button}
-          title="Next" 
-          onPress={() => this.props.navigation.navigate('HBA1C')} />
-      </View>
-    );*/
+    let items = Array.apply(null, Array(100)).map((v, i) => {
+      return {id: (i+1), src: 'https://res.cloudinary.com/sv22/image/upload/v1533932127/'+(i+1)+'.jpg' }
+    });
     return(
-      <PhotoGrid
-        data = { this.state.items }
-        itemsPerRow = { 3 }
-        itemMargin = { 1 }
-        itemPaddingHorizontal={1}
-        renderItem = { this.renderItem }
+      <View>
+      <GridView
+        style={{backgroundColor:'#000000'}}
+        horizontal={true}
+        itemDimension={95}
+        items={items}
+        spacing={7}
+        renderItem={(item) => {
+          return(
+            <TouchableOpacity
+              onPress={()=>{this._handlePress(item.id)}}
+              onLongPress={() => {
+                this.setState({imgId:item.id})
+                this._setModalVisible(!this.state.modalVisible);
+                }}>
+              <Image
+                style={styles.thumbs}
+                source={{uri:item.src}}/>  
+            </TouchableOpacity>
+          );
+        }}
       />
+  
+        <Modal
+          animationType="fade"
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {this._setModalVisible(!this.state.modalVisible)}}>
+          <View style={{backgroundColor:'#000000'}}>
+           <ImageZoom
+              cropWidth={Dimensions.get('window').width}
+              cropHeight={Dimensions.get('window').height}
+              imageWidth={Dimensions.get('window').width}
+              imageHeight={Dimensions.get('window').width}>
+                <Image
+                  style={styles.images}
+                  source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+this.state.imgId+'.jpg'}}/>
+            </ImageZoom>
+            </View>
+          </Modal>
+      </View>
     );
   }
 }

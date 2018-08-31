@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Button, StyleSheet } from 'react-native';
+import { View, Button, Text} from 'react-native';
 import styles from '../CSS/css';
 import RNPickerSelect from 'react-native-picker-select';
 import { observer } from 'mobx-react';
@@ -13,8 +13,20 @@ export default class RenInvPage extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = {RenInv:undefined,
-        };
+        this.state = {RenInv:undefined,RenInvLbl:''};
+    }
+
+    _getRenInvLabel = (value) => {
+        switch(value){
+            case 0:
+                return "No";
+            case 1:
+                return "Microalbumineria";
+            case 2:
+                return "Creatinine > 1.6";
+            case 3:
+                return "Creatinine > 4";
+        }
     }
 
     _validateInput = () =>{
@@ -34,10 +46,10 @@ export default class RenInvPage extends React.Component{
 
     render(){
         const items = [
-            {label:'No',value:'0',},
-            {label:'Microalbumineuria', value:'1',},
-            {label:'Creatinine > 1.6', value:'2',},
-            {label:'Creatinine > 4', value:'3',},
+            {label:'No',value:0,},
+            {label:'Microalbumineuria', value:1,},
+            {label:'Creatinine > 1.6', value:2,},
+            {label:'Creatinine > 4', value:3,},
         ];
         return(
             <View 
@@ -50,11 +62,14 @@ export default class RenInvPage extends React.Component{
                         }}
                     items={items}
                     value={this.state.RenInv}
-                    onValueChange={(value) => this.setState({RenInv:value})} />
+                    onValueChange={(value) => {
+                        this.setState({RenInv:value,RenInvLbl:this._getRenInvLabel(value)});
+                    }} />
                 <Button
                     style= {styles.button}
                     title="Next"
                     onPress={() => this._handlePress()}/>
+                <Text style={styles.text}>Renal Involvement: {this.state.RenInvLbl}</Text>
             </View>
         );
     }
