@@ -31,34 +31,6 @@ export default class RenInvPage extends React.Component{
     }
   }
 
-<<<<<<< HEAD
-    render(){
-        const items = [
-            {label:'No',value:0,},
-            {label:'Microalbumineuria', value:1,},
-            {label:'Creatinine > 1.6', value:2,},
-            {label:'Creatinine > 4', value:3,},
-        ];
-        return(
-            <View 
-                style={styles.container}>
-                <RNPickerSelect 
-                    style={{...styles}}
-                    placeholder={{
-                        label:'Renal Involvement',
-                        value:null,
-                        }}
-                    items={items}
-                    value={this.state.RenInv}
-                    onValueChange={(value) => this.setState({RenInv:value})} />
-                <Button
-                    style= {styles.button}
-                    title="Next"
-                    onPress={() => this._handlePress()}/>
-            </View>
-        );
-    }
-=======
   render(){
     const items = [
       {label:'No',value:0,},
@@ -84,5 +56,4 @@ export default class RenInvPage extends React.Component{
       </View>
     );
   }
->>>>>>> Lab
 }

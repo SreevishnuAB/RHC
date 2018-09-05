@@ -23,18 +23,10 @@ export default class HBA1CPage extends React.Component{
     return true;
   }
 
-<<<<<<< HEAD
-    _handlePress = () =>{
-        if(this._validateInput()){
-            DataStore.updateHBA1C(parseFloat(this.state.HBA1C));
-            this.props.navigation.navigate('SerChol');
-        }
-=======
   _handlePress = () =>{
     if(this._validateInput()){
 //      DataStore.updateHBA1C(parseFloat(this.state.HBA1C));
       this.props.navigation.navigate('SerChol');
->>>>>>> Lab
     }
   }
 

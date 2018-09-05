@@ -31,35 +31,6 @@ export default class SmokingPage extends React.Component{
     }
   }
 
-<<<<<<< HEAD
-    render(){
-
-        const items = [
-            {label:'No',value:0,},
-            {label:'Yes', value:1,},
-            {label:'Related Lung Disease', value:2,},
-        ];
-
-        return(
-            <View
-                style={styles.container}>
-                <RNPickerSelect 
-                    style={{...styles}}
-                    placeholder={{
-                        label:'Smoking',
-                        value:null,
-                    }}
-                    items={items}
-                    value={this.state.Smoking}
-                    onValueChange={(value) => this.setState({Smoking:value})} />
-                <Button
-                    style={styles.button}
-                    title="Next" 
-                    onPress={() => {this._handlePress()}}/>
-            </View>
-        );
-    }
-=======
   render(){
     const items = [
       {label:'No',value:0,},
@@ -84,5 +55,4 @@ export default class SmokingPage extends React.Component{
       </View>
     );
   }
->>>>>>> Lab
 }

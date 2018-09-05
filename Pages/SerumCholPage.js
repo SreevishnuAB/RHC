@@ -15,17 +15,9 @@ export default class SerumCholPage extends React.Component{
     this.state = {SC:100};
   }
 
-<<<<<<< HEAD
-    _handlePress = () => {
-        if(this._validateInput()){
-            DataStore.updateSerChol(parseFloat(this.state.SC));
-            this.props.navigation.navigate('RenInv');
-        }
-=======
   _handlePress = () => {
     if(this._validateInput()){
       this.props.navigation.navigate('RenInv');
->>>>>>> Lab
     }
   }
 

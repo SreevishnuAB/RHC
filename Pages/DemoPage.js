@@ -46,20 +46,6 @@ export default class DemoPage extends React.Component{
         visible={this.state.modalVisible}
         onRequestClose={() => {this._setModalVisible(!this.state.modalVisible)}}>
         <View style={{backgroundColor:'#000000'}}>
-<<<<<<< HEAD
-        <ImageZoom
-          style={{justifyContent: 'center',alignItems: 'center'}}
-          cropWidth={Dimensions.get('window').width}
-          cropHeight={Dimensions.get('window').height}
-          imageWidth={Dimensions.get('window').width}
-          imageHeight={Dimensions.get('window').width}>
-            <Image
-              style={styles.images}
-              source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+this.state.imgNum+'.jpg'}}/>
-        </ImageZoom>
-        </View>
-      </Modal>);  
-=======
           <ImageZoom
             style={{justifyContent: 'center',alignItems: 'center'}}
             cropWidth={Dimensions.get('window').width}
@@ -73,7 +59,6 @@ export default class DemoPage extends React.Component{
         </View>
       </Modal>
     );  
->>>>>>> Lab
 /*return (
       <View
         style={styles.container}>
@@ -90,31 +75,6 @@ export default class DemoPage extends React.Component{
       </View>
     );*/
     return(
-<<<<<<< HEAD
-      <View style={{backgroundColor: '#000000',height:Dimensions.get('window').height,justifyContent: 'flex-start',alignItems: 'center'}}>
-      <RNPickerSelect 
-        style={{...styles}}
-        placeholder={{
-          label:'Future Retina',
-          value:DataStore.futureRetina.image,
-        }}
-        items={items}
-        value={this.state.imgNum}
-        onValueChange={(value) => this.setState({imgNum:value})} />
-      <TouchableOpacity
-        onPress={() => {
-          this._setModalVisible(!this.state.modalVisible);
-          }}>
-           <Image
-            style={{height:Dimensions.get('window').width,width:Dimensions.get('window').width}}
-            source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+this.state.imgNum+'.jpg'}}/>  
-      </TouchableOpacity>
-      <Button
-          style={styles.button}
-          onPress={()=>{this._handlePress();}}
-          title='Edit Parameters'/>
-      {img}
-=======
       <View
         style={{backgroundColor: '#000000',height:Dimensions.get('window').height,justifyContent: 'flex-start',alignItems: 'center'}}>
           <RNPickerSelect 
@@ -139,7 +99,6 @@ export default class DemoPage extends React.Component{
             onPress={()=>{this._handlePress();}}
             title='Edit Parameters'/>
           {img}
->>>>>>> Lab
       </View>
     );
   }

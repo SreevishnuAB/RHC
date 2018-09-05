@@ -24,47 +24,13 @@ export default class FollowUpPage extends React.Component{
     return true;
   }
 
-<<<<<<< HEAD
-    _handlePress = () => {
-        if(this._validateInput()){
-            DataStore.updateRegFollowUp(this.state.FollowUp);
-            this.props.navigation.navigate('Years');
-        }
-=======
   _handlePress = () => {
     if(this._validateInput()){
       DataStore.updateRegFollowUp(this.state.FollowUp);
       this.props.navigation.navigate('Years');
->>>>>>> Lab
     }
   }
 
-<<<<<<< HEAD
-    render(){
-        const items = [
-            {label:'No',value:5,},
-            {label:'Yes', value:0,},
-        ];
-        return(
-            <View
-                style={styles.container}>
-                <RNPickerSelect 
-                    style={{...styles}}
-                    placeholder={{
-                        label:'Good Follow-up, Once in 3 Months',
-                        value:null,
-                        }}
-                    items={items}
-                    value={this.state.FollowUp}
-                    onValueChange={(value) => this.setState({FollowUp:value})} />
-                <Button
-                    style={styles.button}
-                    title="Next"
-                    onPress={() => this._handlePress()}/>
-            </View>
-        );
-    }
-=======
   render(){
     const items = [
       {label:'No',value:5,},
@@ -88,5 +54,4 @@ export default class FollowUpPage extends React.Component{
       </View>
     );
   }
->>>>>>> Lab
 }

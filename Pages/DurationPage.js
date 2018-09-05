@@ -31,40 +31,18 @@ export default class DurationPage extends React.Component{
     return true;
   }
 
-<<<<<<< HEAD
-    render(){
-        const items = [
-            {label:'5 - 10 years',value:2,},
-            {label:'11 - 15 years', value:1.5,},
-            {label:'16 - 20 years', value:1,},
-            {label:'> 20 years', value:0.5,},
-        ];
-
-        return(
-            <View
-                style={styles.container}>
-                <RNPickerSelect 
-                    style={{...styles}}
-                    placeholder={{
-                        label:'Duration',
-                        value:null,
-                        }}
-                    items={items}
-                    value={this.state.Duration}
-                    onValueChange={(value) => this.setState({Duration:value})} />
-                <Button
-                    style={styles.button}
-                    title="Next"
-                    onPress={() => this._handlePress()}/>
-            </View>
-        );
-=======
   _getLabelDuration = (val,items) => {
     switch(val){
       case 2:
-        return '5 - 10 years';
-      case 1.5
->>>>>>> Lab
+        return items[0].label;
+      case 1.5:
+        return items[1].label;
+      case 1:
+        return items[2].label;
+      case 0.5:
+        return items[3].label;
+      default:
+        return 0;
     }
   }
 

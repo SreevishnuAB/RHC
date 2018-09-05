@@ -32,33 +32,6 @@ export default class HDStrokePage extends React.Component{
     return true;
   }
 
-<<<<<<< HEAD
-    render(){
-        const items = [
-            {label:'No',value:0,},
-            {label:'Yes', value:1,},
-        ];
-
-        return(
-            <View
-                style={styles.container}>
-                <RNPickerSelect 
-                    style={{...styles}}
-                    placeholder={{
-                        label:'History of Coronary Artery Disease/Stroke',
-                        value:null,
-                        }}
-                    items={items}
-                    value={this.state.History}
-                    onValueChange={(value) => this.setState({History:value})} />
-                <Button
-                    style={styles.button}
-                    title="Next" 
-                    onPress={() => this._handlePress()}/>
-            </View>
-        );
-    }
-=======
   render(){
     const items = [
       {label:'No',value:0,},
@@ -82,5 +55,4 @@ export default class HDStrokePage extends React.Component{
       </View>
     );
   }
->>>>>>> Lab
 }

@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
-import { View, Text, TouchableOpacity , Image , Dimensions , Modal } from 'react-native';
-=======
 import { View, TouchableOpacity , Image , Dimensions , Modal } from 'react-native';
->>>>>>> Lab
 import GridView from 'react-native-super-grid';
 import ImageZoom from 'react-native-image-pan-zoom';
 import { observer } from 'mobx-react';
@@ -36,29 +32,6 @@ export default class BRSPage extends React.Component{
     });
     return(
       <View>
-<<<<<<< HEAD
-      <GridView
-        style={{backgroundColor:'#000000'}}
-        horizontal={true}
-        itemDimension={95}
-        items={items}
-        spacing={7}
-        renderItem={(item) => {
-          return(
-            <TouchableOpacity
-              onPress={()=>{this._handlePress(item.id)}}
-              onLongPress={() => {
-                this.setState({imgId:item.id})
-                this._setModalVisible(!this.state.modalVisible);
-                }}>
-              <Image
-                style={styles.thumbs}
-                source={{uri:item.src}}/>  
-            </TouchableOpacity>
-          );
-        }}
-      />
-=======
         <GridView
           style={{backgroundColor:'#000000'}}
           horizontal={true}
@@ -80,7 +53,6 @@ export default class BRSPage extends React.Component{
             );
           }}
         />
->>>>>>> Lab
   
         <Modal
           animationType="fade"
@@ -97,13 +69,8 @@ export default class BRSPage extends React.Component{
                   style={styles.images}
                   source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+this.state.imgId+'.jpg'}}/>
             </ImageZoom>
-<<<<<<< HEAD
-            </View>
-          </Modal>
-=======
           </View>
         </Modal>
->>>>>>> Lab
       </View>
     );
   }
