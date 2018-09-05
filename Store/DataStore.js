@@ -22,7 +22,11 @@ class DataStore{
     }
 
     updateHBA1C(val){
+<<<<<<< HEAD
         this.hlthParams.hba1c = parseFloat(val);
+=======
+        this.hlthParams.hba1c = val;
+>>>>>>> Lab
     }
 
     updateSerChol(val){
@@ -70,7 +74,11 @@ class DataStore{
 
     generateSerCholScore(){
         let sercholVal = this.hlthParams.serchol;
+<<<<<<< HEAD
         if(sercholVal > 300) return 2.5;
+=======
+        if(sercholVal >= 300) return 2.5;
+>>>>>>> Lab
         else if(sercholVal > 250) return 2;
         else if(sercholVal > 200) return 1.5;
         else if(sercholVal > 150) return 1;
