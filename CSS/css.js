@@ -4,7 +4,6 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#000000',
-      alignItems: 'center',
       justifyContent: 'flex-start',
     },
     tb: {
@@ -15,8 +14,8 @@ const styles = StyleSheet.create({
       borderWidth: 1,
     },
     button: {
-      marginHorizontal:10,
-      width:'200px',
+      marginTop:10,
+      width:100,
       height:50,
     },
     picker: {

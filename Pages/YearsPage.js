@@ -6,35 +6,36 @@ import styles from '../CSS/css';
 
 @observer
 export default class YearsPage extends React.Component{
-    static navigationOptions = {
-        title: 'Years',
-      };
+  static navigationOptions = {
+    title: 'Years',
+  };
       
-    constructor(props){
-        super(props);
-        this.state = {Years:''};
-    }
+  constructor(props){
+    super(props);
+    this.state = {Years:undefined};
+  }
 
-    _handlePress = () =>{
-        DataStore.updateNoOfYears(parseInt(this.state.Years));
-        this.props.navigation.navigate('Image');
-    }
+  _handlePress = () =>{
+    DataStore.updateNoOfYears(this.state.Years);
+    this.props.navigation.navigate('Image');
+  }
 
-    render(){
-        return(
-            <View
-                style={styles.container}>
-                <TextInput
-                    style={styles.tb}
-                    keyboardType={"numeric"}
-                    placeholder="Enter number of years"
-                    onChangeText={(text) => this.setState({Years : text})}/>
-                <Button                
-                    style={styles.button}
-                    title="Next"
-                    onPress={() => this._handlePress()}/>
-                <Text style={styles.text}>Number of years: {this.state.Years}</Text>
-            </View>
-        );
-    }
+  render(){
+    const val = (this.state.Years == undefined)?<Text></Text>:<View style={{alignContent:'center'}}><Text style={styles.text}>Years: {this.state.Years}</Text></View>;
+    return(
+      <View
+        style={styles.container}>
+          <TextInput
+            style={styles.tb}
+            keyboardType={"numeric"}
+            placeholder="Enter number of years"
+            onChangeText={(text) => this.setState({Years : parseInt(text)})}/>
+          <Button                
+            style={styles.button}
+            title="Next"
+            onPress={() => this._handlePress()}/>
+            {val}
+        </View>
+    );
+  }
 }

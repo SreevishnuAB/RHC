@@ -1,30 +1,25 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, View, Image, Dimensions, Modal , Button , Text} from 'react-native';
+import { TouchableOpacity, View, Image, Dimensions, Modal , Button} from 'react-native';
 import ImageZoom from 'react-native-image-pan-zoom';
 import styles from '../CSS/css';
 import {observer} from 'mobx-react';
 import DataStore from '../Store/DataStore';
+import RNPickerSelect from 'react-native-picker-select';
 
 @observer
 export default class DemoPage extends React.Component{
   static navigationOptions = {
     title: 'Image',
   };
+
   constructor(props){
     super(props);
-    this.state = {imgNum:'',url:'',FutureRetinaVisible:false, VisionVisible:false,PresentRetinaVisible:false};
+    DataStore.generateFutureRetina();
+    this.state = {imgNum:DataStore.futureRetina.image,url:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+DataStore.futureRetina.image+'.jpg',modalVisible:false};
   }
 
-  _setFutureRetinaVisible = (visible) => {
-    this.setState({FutureRetinaVisible: visible});
-  }
-
-  _setPresentRetinaVisible = (visible) => {
-    this.setState({PresentRetinaVisible: visible});
-  }
-
-  _setVisionVisible = (visible) => {
-    this.setState({VisionVisible:visible});
+  _setModalVisible = (visible) => {
+    this.setState({modalVisible: visible});
   }
 
   _displayImage = () => {
@@ -39,34 +34,19 @@ export default class DemoPage extends React.Component{
   }
 
   render() {
-    DataStore.generateFutureRetina();
-    const futureimg= (
+    const items=[
+      {label:"Current Retina",value:DataStore.currentRetina.image},
+      {label:"Vision",value:100}
+    ];
+
+    const img= (
       <Modal
         animationType="fade"
         transparent={false}
-        visible={this.state.FutureRetinaVisible}
-        onRequestClose={() => {this._setFutureRetinaVisible(!this.state.FutureRetinaVisible)}}>
+        visible={this.state.modalVisible}
+        onRequestClose={() => {this._setModalVisible(!this.state.modalVisible)}}>
         <View style={{backgroundColor:'#000000'}}>
-        <ImageZoom
-          style={{justifyContent: 'center',alignItems: 'center'}}
-          cropWidth={Dimensions.get('window').width}
-          cropHeight={Dimensions.get('window').height}
-          imageWidth={Dimensions.get('window').width}
-          imageHeight={Dimensions.get('window').width}>
-            <Image
-              style={styles.images}
-              source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+DataStore.futureRetina.image+'.jpg'}}/>
-        </ImageZoom>
-        </View>
-      </Modal>);
-    const presentimg = (
-      <Modal
-        animationType="fade"
-        transparent={false}
-        visible={this.state.PresentRetinaVisible}
-        onRequestClose={() => {this._setPresentRetinaVisible(!this.state.PresentRetinaVisible)}}>
-        <View style={{backgroundColor:'#000000'}}>
-           <ImageZoom
+          <ImageZoom
             style={{justifyContent: 'center',alignItems: 'center'}}
             cropWidth={Dimensions.get('window').width}
             cropHeight={Dimensions.get('window').height}
@@ -74,30 +54,11 @@ export default class DemoPage extends React.Component{
             imageHeight={Dimensions.get('window').width}>
               <Image
                 style={styles.images}
-                source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+DataStore.imageSelected.id+'.jpg'}}/>
+                source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+this.state.imgNum+'.jpg'}}/>
           </ImageZoom>
-          </View>
-        </Modal>);
-      const visionimg = (
-      <Modal
-        animationType="fade"
-        transparent={false}
-        visible={this.state.VisionVisible}
-        onRequestClose={() => {this._setVisionVisible(!this.state.VisionVisible)}}>
-        <View style={{backgroundColor:'#000000'}}>
-        <Text style={styles.text}>placeholder</Text>
-           {/*<ImageZoom
-            style={{justifyContent: 'center',alignItems: 'center'}}
-            cropWidth={Dimensions.get('window').width}
-            cropHeight={Dimensions.get('window').height}
-            imageWidth={Dimensions.get('window').width}
-            imageHeight={Dimensions.get('window').width}>
-              <Image
-                style={styles.images}
-              source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+DataStore.imageSelected.id+'.jpg'}}/>
-          </ImageZoom>*/}
-          </View>
-        </Modal>);
+        </View>
+      </Modal>
+    );  
 /*return (
       <View
         style={styles.container}>
@@ -114,32 +75,30 @@ export default class DemoPage extends React.Component{
       </View>
     );*/
     return(
-      <View style={{backgroundColor: '#000000',height:Dimensions.get('window').height,justifyContent: 'center',alignItems: 'center'}}>
-      <TouchableOpacity
-        onPress={() => {
-          this._setFutureRetinaVisible(!this.state.FutureRetinaVisible)
-          }}>
-           <Image
-            style={{height:Dimensions.get('window').width,width:Dimensions.get('window').width}}
-            source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+DataStore.futureRetina.image+'.jpg'}}/>  
-      </TouchableOpacity>
-      <View style={{flexDirection:'row'}}>
-      <Button
-          style={styles.button}
-          onPress={()=>{this._handlePress()}}
-          title='Edit Parameters'/>
-      <Button
-          style={styles.button}
-          onPress={()=>{this._setPresentRetinaVisible()}}
-          title='Current Image'/>
-      <Button
-          style={styles.button}
-          onPress={()=>{this._setVisionVisible()}}
-          title='Vision'/>
-          </View>
-      {futureimg}
-      {presentimg}
-      {visionimg}
+      <View
+        style={{backgroundColor: '#000000',height:Dimensions.get('window').height,justifyContent: 'flex-start',alignItems: 'center'}}>
+          <RNPickerSelect 
+            style={{...styles}}
+            placeholder={{
+              label:'Future Retina',
+              value:DataStore.futureRetina.image,
+            }}
+            items={items}
+            value={this.state.imgNum}
+            onValueChange={(value) => this.setState({imgNum:value})} />
+          <TouchableOpacity
+            onPress={() => {
+              this._setModalVisible(!this.state.modalVisible);
+            }}>
+            <Image
+              style={{height:Dimensions.get('window').width,width:Dimensions.get('window').width}}
+              source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+this.state.imgNum+'.jpg'}}/>  
+          </TouchableOpacity>
+          <Button
+            style={styles.button}
+            onPress={()=>{this._handlePress();}}
+            title='Edit Parameters'/>
+          {img}
       </View>
     );
   }
