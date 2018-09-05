@@ -4,6 +4,7 @@ import ImageZoom from 'react-native-image-pan-zoom';
 import styles from '../CSS/css';
 import {observer} from 'mobx-react';
 import DataStore from '../Store/DataStore';
+import RNPickerSelect from 'react-native-picker-select';
 
 @observer
 export default class DemoPage extends React.Component{
@@ -12,7 +13,8 @@ export default class DemoPage extends React.Component{
   };
   constructor(props){
     super(props);
-    this.state = {imgNum:'',url:'',modalVisible:false};
+    DataStore.generateFutureRetina();
+    this.state = {imgNum:DataStore.futureRetina.image,url:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+DataStore.futureRetina.image+'.jpg',modalVisible:false};
   }
 
   _setModalVisible = (visible) => {
@@ -31,7 +33,11 @@ export default class DemoPage extends React.Component{
   }
 
   render() {
-    DataStore.generateFutureRetina();
+    const items=[
+      {label:"Current Retina",value:DataStore.currentRetina.image},
+      {label:"Vision",value:100}
+    ];
+
     const img= (
       <Modal
         animationType="fade"
@@ -47,7 +53,7 @@ export default class DemoPage extends React.Component{
           imageHeight={Dimensions.get('window').width}>
             <Image
               style={styles.images}
-              source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+DataStore.futureRetina.image+'.jpg'}}/>
+              source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+this.state.imgNum+'.jpg'}}/>
         </ImageZoom>
         </View>
       </Modal>);  
@@ -67,14 +73,23 @@ export default class DemoPage extends React.Component{
       </View>
     );*/
     return(
-      <View style={{backgroundColor: '#000000',height:Dimensions.get('window').height,justifyContent: 'center',alignItems: 'center'}}>
+      <View style={{backgroundColor: '#000000',height:Dimensions.get('window').height,justifyContent: 'flex-start',alignItems: 'center'}}>
+      <RNPickerSelect 
+        style={{...styles}}
+        placeholder={{
+          label:'Future Retina',
+          value:DataStore.futureRetina.image,
+        }}
+        items={items}
+        value={this.state.imgNum}
+        onValueChange={(value) => this.setState({imgNum:value})} />
       <TouchableOpacity
         onPress={() => {
           this._setModalVisible(!this.state.modalVisible);
           }}>
            <Image
             style={{height:Dimensions.get('window').width,width:Dimensions.get('window').width}}
-            source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+DataStore.futureRetina.image+'.jpg'}}/>  
+            source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+this.state.imgNum+'.jpg'}}/>  
       </TouchableOpacity>
       <Button
           style={styles.button}

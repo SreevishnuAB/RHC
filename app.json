@@ -5,8 +5,10 @@
     "sdkVersion": "27.0.0",
     "splash": {
       "image": "./Assets/rhc.png",
-      "backgroundColor": "#000000"
+      "backgroundColor": "#000000",
+      "resizeMode": "contain"
     },
+    "primaryColor": "#3d3d3d",
     "icon": "./Assets/rhcicon.png",
     "android": {
       "package":"com.rhcdev.rhc"

@@ -2,7 +2,7 @@ import { observable, action, decorate, computed } from 'mobx';
 
 class DataStore{
     //to store image selected by user
-    imageSelected = {id:0};
+    currentRetina = {image:0};
     futureRetina = {image:0};
 
     //to store health parameters
@@ -18,7 +18,7 @@ class DataStore{
     };
 
     updateImageSelected(imgNum){
-        this.imageSelected.id = parseInt(imgNum);
+        this.currentRetina.image = parseInt(imgNum);
     }
 
     updateHBA1C(val){
@@ -81,13 +81,13 @@ class DataStore{
     generateFutureRetina(){
         let totalScore = (this.generateHBA1CScore() + this.generateSerCholScore() + this.hlthParams.reninv + this.hlthParams.smoke + this.hlthParams.dur + this.hlthParams.cordis + this.hlthParams.gfu);
         let futureScore = totalScore * this.hlthParams.years;
-        let finalRetina = (this.imageSelected.id + futureScore > 100)? 100: this.imageSelected.id + futureScore;
+        let finalRetina = (this.currentRetina.image + futureScore > 100)? 100: this.currentRetina.image + futureScore;
         this.updateFutureRetina(parseInt(finalRetina)); 
     }
 }
 
 decorate(DataStore,{
-    imageSelected:observable,
+    currentRetina:observable,
     hlthparams:observable,
     futureRetina:observable,
     updateHBA1C:action,
