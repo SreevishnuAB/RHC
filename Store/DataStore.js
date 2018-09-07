@@ -9,11 +9,11 @@ class DataStore{
     hlthParams = {
         hba1c:0,
         serchol:0,
-        reninv:0,
-        smoke:0,
-        dur:0,
-        cordis:0,
-        gfu:0,
+        reninv:{value:0,label:''},
+        smoke:{value:0,label:''},
+        dur:{value:0,label:''},
+        cordis:{value:0,label:''},
+        gfu:{value:0,label:''},
         years:0,
     };
 
@@ -29,24 +29,24 @@ class DataStore{
         this.hlthParams.serchol = parseFloat(val);
     }
 
-    updateRenInv(val){
-        this.hlthParams.reninv = val;
+    updateRenInv(obj){
+        this.hlthParams.reninv = obj;
     }
 
-    updateSmoke(val){
-        this.hlthParams.smoke = val;
+    updateSmoke(obj){
+        this.hlthParams.smoke = obj;
     }
 
-    updateDur(val){
-        this.hlthParams.dur = val;
+    updateDur(obj){
+        this.hlthParams.dur = obj;
     }
 
-    updateHisCorDis(val){
-        this.hlthParams.cordis = val;
+    updateHisCorDis(obj){
+        this.hlthParams.cordis = obj;
     }
 
-    updateRegFollowUp(val){
-        this.hlthParams.gfu=val;
+    updateRegFollowUp(obj){
+        this.hlthParams.gfu = obj;
     }
 
     updateNoOfYears(val){
@@ -79,7 +79,7 @@ class DataStore{
     }
 
     generateFutureRetina(){
-        let totalScore = (this.generateHBA1CScore() + this.generateSerCholScore() + this.hlthParams.reninv + this.hlthParams.smoke + this.hlthParams.dur + this.hlthParams.cordis + this.hlthParams.gfu);
+        let totalScore = (this.generateHBA1CScore() + this.generateSerCholScore() + this.hlthParams.reninv.value + this.hlthParams.smoke.value + this.hlthParams.dur.value + this.hlthParams.cordis.value + this.hlthParams.gfu.value);
         let futureScore = totalScore * this.hlthParams.years;
         let finalRetina = (this.currentRetina.image + futureScore > 100)? 100: this.currentRetina.image + futureScore;
         this.updateFutureRetina(parseInt(finalRetina)); 

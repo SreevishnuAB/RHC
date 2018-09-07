@@ -13,11 +13,11 @@ export default class RenInvPage extends React.Component{
 
   constructor(props){
     super(props);
-    this.state = {RenInv:undefined};
+    this.state = {RenInv:{value:undefined,label:undefined}};
   }
 
   _validateInput = () =>{
-    if(this.state.RenInv == undefined){
+    if(this.state.RenInv.value == undefined){
       alert("Invalid input");
       return false;
     }
@@ -51,7 +51,9 @@ export default class RenInvPage extends React.Component{
       {label:'Creatinine > 1.6', value:2,},
       {label:'Creatinine > 4', value:3,},
     ];
-    const val = (this.state.RenInv == undefined)?<Text></Text>:<View style={{alignContent:'stretch'}}><Text style={styles.text}>Renal Involvement: {this._getLabelRenInv(this.state.RenInv,items)}</Text></View>;
+
+    const val = (this.state.RenInv.value == undefined)?<Text></Text>:<Text style={styles.text}>Renal Involvement: {this.state.RenInv.label}</Text>;
+
     return(
       <View 
         style={styles.container}>
@@ -59,13 +61,15 @@ export default class RenInvPage extends React.Component{
             style={{...styles}}
             placeholder={{label:'Renal Involvement',value:null}}
             items={items}
-            value={this.state.RenInv}
-            onValueChange={(value) => this.setState({RenInv:value})} />
+            value={this.state.RenInv.value}
+            onValueChange={(val) => this.setState({RenInv:{value:val,label:this._getLabelRenInv(val,items)}})} />
           <Button
             style= {styles.button}
             title="Next"
             onPress={() => this._handlePress()}/>
-            {val}
+          <Text style={styles.text}>HBA1C: {DataStore.hlthParams.hba1c}</Text>
+          <Text style={styles.text}>Serum Cholestrol: {DataStore.hlthParams.serchol}</Text>
+          {val}
       </View>
     );
   }

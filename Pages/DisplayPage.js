@@ -53,7 +53,7 @@ export default class DisplayPage extends React.Component{
             style={{width:Dimensions.get('window').width,height:100}}
             maximumValue={12}
             minimumValue={5}
-            onValueChange={(value)=>this.setState({HBA1C:value})}
+            onValueChange={(value)=>this.setState({HBA1C:(parseInt(value*10))/10})}
             onSlidingComplete={()=>DataStore.updateHBA1C(this.state.HBA1C)}
             step={0.1}
             value={DataStore.hlthParams.hba1c}
@@ -91,8 +91,8 @@ export default class DisplayPage extends React.Component{
                 value:null,
               }}
               items={items.RenInv}
-              value={DataStore.hlthParams.reninv}
-              onValueChange={(value) => DataStore.updateRenInv(value)} />
+              value={DataStore.hlthParams.reninv.value}
+              onValueChange={(val) => DataStore.updateRenInv({value:val,label:undefined})} />
             <Text style={styles.text}>Smoking:</Text>
             <RNPickerSelect 
               style={{...styles}}
@@ -101,8 +101,8 @@ export default class DisplayPage extends React.Component{
                 value:null,
               }}
               items={items.Smoking}
-              value={DataStore.hlthParams.smoke}
-              onValueChange={(value) => DataStore.updateSmoke(value)} />
+              value={DataStore.hlthParams.smoke.value}
+              onValueChange={(val) => DataStore.updateSmoke({value:val,label:undefined})} />
             <Text style={styles.text}>Duration:</Text>
             <RNPickerSelect 
               style={{...styles}}
@@ -111,8 +111,8 @@ export default class DisplayPage extends React.Component{
                 value:null,
               }}
               items={items.Duration}
-              value={DataStore.hlthParams.dur}
-              onValueChange={(value) => DataStore.updateDur(value)} />
+              value={DataStore.hlthParams.dur.value}
+              onValueChange={(val) => DataStore.updateDur({value:val,label:undefined})} />
             <Text style={styles.text}>History of Coronary Artery Disease/Stroke:</Text>
             <RNPickerSelect 
               style={{...styles}}
@@ -121,8 +121,8 @@ export default class DisplayPage extends React.Component{
                 value:null,
               }}
               items={items.HDStroke}
-              value={DataStore.hlthParams.cordis}
-              onValueChange={(value) => DataStore.updateHisCorDis(value)} />
+              value={DataStore.hlthParams.cordis.value}
+              onValueChange={(val) => DataStore.updateHisCorDis({value:val,label:''})} />
             <Text style={styles.text}>Good Follow-up, Once in 3 Months:</Text>
             <RNPickerSelect 
               style={{...styles}}
@@ -131,8 +131,8 @@ export default class DisplayPage extends React.Component{
                 value:null,
               }}
               items={items.FollowUp}
-              value={DataStore.hlthParams.gfu}
-              onValueChange={(value) => DataStore.updateRegFollowUp(value)} />
+              value={DataStore.hlthParams.gfu.value}
+              onValueChange={(val) => DataStore.updateRegFollowUp({value:val,label:''})} />
 {/*          <Text style={styles.touchable}>Image Selected: {DataStore.imageSelected.id}</Text>          
           <Button
             style={styles.button}

@@ -13,7 +13,7 @@ export default class HDStrokePage extends React.Component{
 
   constructor(props){
     super(props);
-    this.state = {HisCorDis:undefined};
+    this.state = {HisCorDis:{value:undefined,label:undefined}};
   }
 
   _handlePress = () => {
@@ -24,7 +24,7 @@ export default class HDStrokePage extends React.Component{
   }
   
   _validateInput = () => {
-    if(this.state.HisCorDis == undefined){
+    if(this.state.HisCorDis.value == undefined){
       alert("Invalid input");
       return false;
     }
@@ -43,7 +43,7 @@ export default class HDStrokePage extends React.Component{
       {label:'No',value:0,},
       {label:'Yes', value:1,},
     ];
-    const val = (this.state.HisCorDis == undefined)?<Text></Text>:<View style={{alignContent:'center'}}><Text style={styles.text}>History of Coronary Artery Disease / Stroke: {this._getLabelHisCorDis(this.state.HisCorDis,items)}</Text></View>;
+    const val = (this.state.HisCorDis.value == undefined)?<Text></Text>:<Text style={styles.text}>History of Coronary Artery Disease / Stroke: {this.state.HisCorDis.label}</Text>;
     return(
       <View
         style={styles.container}>
@@ -51,13 +51,18 @@ export default class HDStrokePage extends React.Component{
             style={{...styles}}
             placeholder={{label:'History of Coronary Artery Disease/Stroke',value:null}}
             items={items}
-            value={this.state.HisCorDis}
-            onValueChange={(value) => this.setState({HisCorDis:value})} />
+            value={this.state.HisCorDis.value}
+            onValueChange={(val) => this.setState({HisCorDis:{value:val,label:this._getLabelHisCorDis(val,items)}})} />
           <Button
             style={styles.button}
             title="Next" 
             onPress={() => this._handlePress()}/>
-            {val}
+          <Text style={styles.text}>HBA1C: {DataStore.hlthParams.hba1c}</Text>
+          <Text style={styles.text}>Serum Cholestrol: {DataStore.hlthParams.serchol}</Text>
+          <Text style={styles.text}>Renal Involvement: {DataStore.hlthParams.reninv.label}</Text>
+          <Text style={styles.text}>Smoking: {DataStore.hlthParams.smoke.label}</Text>
+          <Text style={styles.text}>Duration: {DataStore.hlthParams.dur.label}</Text>
+          {val}
       </View>
     );
   }

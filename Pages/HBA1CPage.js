@@ -12,7 +12,7 @@ export default class HBA1CPage extends React.Component{
   
   constructor(props){
     super(props);
-    this.state = {HBA1C:5};
+    this.state = {HBA1C:5,view:false};
   }
 
   _validateInput = () =>{
@@ -31,6 +31,7 @@ export default class HBA1CPage extends React.Component{
   }
 
   render(){
+    const val = (!this.state.view)?<Text></Text>:<Text style={styles.text}>HBA1C: {this.state.HBA1C}</Text>;
     return(
       <View
         style={styles.container}>
@@ -46,7 +47,10 @@ export default class HBA1CPage extends React.Component{
             maximumValue={12}
             minimumValue={5}
             onValueChange={(value)=>this.setState({HBA1C:value})}
-            onSlidingComplete={()=>DataStore.updateHBA1C(parseInt(this.state.HBA1C*10)/10)}
+            onSlidingComplete={()=>{
+              this.setState({view:true});
+              DataStore.updateHBA1C(parseInt(this.state.HBA1C*10)/10)
+            }}
             step={0.1}
             value={this.state.HBA1C}
             thumbTintColor='#ffffff'/>
@@ -59,6 +63,7 @@ export default class HBA1CPage extends React.Component{
             style={styles.button}
             title="Next"
             onPress={() => this._handlePress()}/>
+          {val}
       </View>
     );
   }

@@ -12,7 +12,7 @@ export default class SerumCholPage extends React.Component{
 
   constructor(props){
     super(props);
-    this.state = {SC:100};
+    this.state = {SC:100,view:false};
   }
 
   _handlePress = () => {
@@ -30,6 +30,7 @@ export default class SerumCholPage extends React.Component{
   }
     
   render(){
+    const val = (!this.state.view)?<Text></Text>:<Text style={styles.text}>Serum Cholestrol: {this.state.SC}</Text>;
     return(
       <View
         style={styles.container}>
@@ -45,7 +46,9 @@ export default class SerumCholPage extends React.Component{
             maximumValue={300}
             minimumValue={100}
             onValueChange={(value)=>this.setState({SC:value})}
-            onSlidingComplete={()=>DataStore.updateSerChol(this.state.SC)}
+            onSlidingComplete={()=>{
+              this.setState({view:true});
+              DataStore.updateSerChol(this.state.SC)}}
             step={1}
             value={this.state.SC}
             thumbTintColor='#ffffff'/>
@@ -59,6 +62,7 @@ export default class SerumCholPage extends React.Component{
             title="Next"
             onPress={() => this._handlePress()}/>
           <Text style={styles.text}>HBA1C: {DataStore.hlthParams.hba1c}</Text>
+          {val}
       </View>
     );
   }

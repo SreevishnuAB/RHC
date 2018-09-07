@@ -13,7 +13,7 @@ export default class DurationPage extends React.Component{
 
   constructor(props){
     super(props);
-    this.state = {Duration:undefined,};
+    this.state = {Duration:{value:undefined,label:undefined}};
   }
 
   _handlePress = () => {
@@ -24,7 +24,7 @@ export default class DurationPage extends React.Component{
   }
 
   _validateInput = () =>{
-    if(this.state.Duration == undefined){
+    if(this.state.Duration.value == undefined){
       alert("Invalid input");
       return false;
     }
@@ -53,7 +53,7 @@ export default class DurationPage extends React.Component{
       {label:'16 - 20 years', value:1,},
       {label:'> 20 years', value:0.5,},
     ];
-    const val = (this.state.Duration == undefined)?<Text></Text>:<View style={{alignContent:'center'}}><Text style={styles.text}>Duration: {this._getLabelDuration(this.state.Duration,items)}</Text></View>;
+    const val = (this.state.Duration.value == undefined)?<Text></Text>:<Text style={styles.text}>Duration: {this.state.Duration.label}</Text>;
     return(
       <View
         style={styles.container}>
@@ -61,12 +61,16 @@ export default class DurationPage extends React.Component{
             style={{...styles}}
             placeholder={{label:'Duration',value:null}}
             items={items}
-            value={this.state.Duration}
-            onValueChange={(value) => this.setState({Duration:value})} />
+            value={this.state.Duration.value}
+            onValueChange={(val) => this.setState({Duration:{value:val,label:this._getLabelDuration(val,items)}})} />
           <Button
             style={styles.button}
             title="Next"
             onPress={() => this._handlePress()}/>
+          <Text style={styles.text}>HBA1C: {DataStore.hlthParams.hba1c}</Text>
+          <Text style={styles.text}>Serum Cholestrol: {DataStore.hlthParams.serchol}</Text>
+          <Text style={styles.text}>Renal Involvement: {DataStore.hlthParams.reninv.label}</Text>
+          <Text style={styles.text}>Smoking: {DataStore.hlthParams.smoke.label}</Text>
           {val}
       </View>
     );

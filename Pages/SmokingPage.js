@@ -13,11 +13,11 @@ export default class SmokingPage extends React.Component{
 
   constructor(props){
     super(props);
-    this.state = {Smoking:undefined};
+    this.state = {Smoking:{value:undefined,label:undefined}};
   }
 
   _validateInput = () =>{
-    if(this.state.Smoking == undefined){
+    if(this.state.Smoking.value == undefined){
       alert("Invalid input");
       return false;
     }
@@ -48,7 +48,7 @@ export default class SmokingPage extends React.Component{
       {label:'Yes', value:1,},
       {label:'Related Lung Disease', value:2,},
     ];
-    const val = (this.state.Smoking == undefined)?<Text></Text>:<View style={{alignContent:'center'}}><Text style={styles.text}>Smoking: {this._getLabelSmoking(this.state.Smoking,items)}</Text></View>;
+    const val = (this.state.Smoking.value == undefined)?<Text></Text>:<Text style={styles.text}>Smoking: {this.state.Smoking.label}</Text>;
     return(
       <View
         style={styles.container}>
@@ -56,13 +56,16 @@ export default class SmokingPage extends React.Component{
             style={{...styles}}
             placeholder={{label:'Smoking',value:null}}
             items={items}
-            value={this.state.Smoking}
-            onValueChange={(value) => this.setState({Smoking:value})} />
+            value={this.state.Smoking.value}
+            onValueChange={(val) => this.setState({Smoking:{value:val,label:this._getLabelSmoking(val,items)}})} />
           <Button
             style={styles.button}
             title="Next" 
             onPress={() => {this._handlePress()}}/>
-            {val}
+          <Text style={styles.text}>HBA1C: {DataStore.hlthParams.hba1c}</Text>
+          <Text style={styles.text}>Serum Cholestrol: {DataStore.hlthParams.serchol}</Text>
+          <Text style={styles.text}>Renal Involvement: {DataStore.hlthParams.reninv.label}</Text>
+          {val}
       </View>
     );
   }

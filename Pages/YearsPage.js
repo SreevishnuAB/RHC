@@ -35,6 +35,13 @@ export default class YearsPage extends React.Component{
             style={styles.button}
             title="Next"
             onPress={() => this._handlePress()}/>
+                    <Text style={styles.text}>HBA1C: {DataStore.hlthParams.hba1c}</Text>
+          <Text style={styles.text}>Serum Cholestrol: {DataStore.hlthParams.serchol}</Text>
+          <Text style={styles.text}>Renal Involvement: {DataStore.hlthParams.reninv.label}</Text>
+          <Text style={styles.text}>Smoking: {DataStore.hlthParams.smoke.label}</Text>
+          <Text style={styles.text}>Duration: {DataStore.hlthParams.dur.label}</Text>
+          <Text style={styles.text}>History of Coronary Artery Disease/Stroke: {DataStore.hlthParams.cordis.label}</Text>
+          <Text style={styles.text}>Good Follow-Up, Once in 3 Months: {DataStore.hlthParams.gfu.label}</Text>
           {val}  
       </View>
     );
