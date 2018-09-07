@@ -29,7 +29,8 @@ export default class BRSPage extends React.Component{
   render(){
     let items = Array.apply(null, Array(100)).map((v, i) => {
       return {id: (i+1), src: 'https://res.cloudinary.com/sv22/image/upload/v1533932127/'+(i+1)+'.jpg' }
-    });
+      }
+    );
     return(
       <View>
         <GridView
@@ -46,30 +47,28 @@ export default class BRSPage extends React.Component{
                   this.setState({imgId:item.id})
                   this._setModalVisible(!this.state.modalVisible);
                 }}>
-                <Image
-                  style={styles.thumbs}
-                  source={{uri:item.src}}/>  
+                  <Image
+                    style={styles.thumbs}
+                    source={{uri:item.src}}/>  
               </TouchableOpacity>
             );
-          }}
-        />
-  
+          }}/>
         <Modal
           animationType="fade"
           transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => {this._setModalVisible(!this.state.modalVisible)}}>
-          <View style={{backgroundColor:'#000000'}}>
-           <ImageZoom
-              cropWidth={Dimensions.get('window').width}
-              cropHeight={Dimensions.get('window').height}
-              imageWidth={Dimensions.get('window').width}
-              imageHeight={Dimensions.get('window').width}>
-                <Image
-                  style={styles.images}
-                  source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+this.state.imgId+'.jpg'}}/>
-            </ImageZoom>
-          </View>
+            <View style={{backgroundColor:'#000000'}}>
+              <ImageZoom
+                cropWidth={Dimensions.get('window').width}
+                cropHeight={Dimensions.get('window').height}
+                imageWidth={Dimensions.get('window').width}
+                imageHeight={Dimensions.get('window').width}>
+                  <Image
+                    style={styles.images}
+                    source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+this.state.imgId+'.jpg'}}/>
+              </ImageZoom>
+            </View>
         </Modal>
       </View>
     );

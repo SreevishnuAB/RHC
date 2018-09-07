@@ -31,12 +31,17 @@ export default class FollowUpPage extends React.Component{
     }
   }
 
+  _getLabelFollowup = (val,items) => {
+    if(val == 5)
+      return items[0].label;
+    return items[1].label;
+  }
   render(){
     const items = [
       {label:'No',value:5,},
       {label:'Yes', value:0,},
     ];
-    const val = (this.state.FollowUp == undefined)?<Text></Text>:<View style={{alignContent:'center'}}><Text style={styles.text}>Good FollowUp: {this.state.FollowUp}</Text></View>;
+    const val = (this.state.FollowUp == undefined)?<Text></Text>:<View style={{alignContent:'center'}}><Text style={styles.text}>Good FollowUp: {this._getLabelFollowup(this.state.FollowUp,items)}</Text></View>;
     return(
       <View
         style={styles.container}>

@@ -31,13 +31,24 @@ export default class SmokingPage extends React.Component{
     }
   }
 
+  _getLabelSmoking = (val,items) => {
+    switch(val){
+      case 2:
+        return items[2].label;
+      case 1:
+        return items[1].label;
+      default:
+        return items[0].label;
+    }
+  }
+
   render(){
     const items = [
       {label:'No',value:0,},
       {label:'Yes', value:1,},
       {label:'Related Lung Disease', value:2,},
     ];
-    const val = (this.state.Smoking == undefined)?<Text></Text>:<View style={{alignContent:'center'}}><Text style={styles.text}>Smoking: {this.state.Smoking}</Text></View>;
+    const val = (this.state.Smoking == undefined)?<Text></Text>:<View style={{alignContent:'center'}}><Text style={styles.text}>Smoking: {this._getLabelSmoking(this.state.Smoking,items)}</Text></View>;
     return(
       <View
         style={styles.container}>

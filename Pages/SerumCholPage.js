@@ -51,13 +51,14 @@ export default class SerumCholPage extends React.Component{
             thumbTintColor='#ffffff'/>
           <View style={{flexDirection:'row',justifyContent:'space-between'}}>
             <Text style={styles.text}>100</Text>
-            <Text style={styles.text}>{this.state.SC}</Text>
+            <Text style={styles.text}>Serum Cholestrol: {this.state.SC}</Text>
             <Text style={styles.text}>300</Text>
           </View>
           <Button
             style={styles.button}
             title="Next"
             onPress={() => this._handlePress()}/>
+          <Text style={styles.text}>HBA1C: {DataStore.hlthParams.hba1c}</Text>
       </View>
     );
   }

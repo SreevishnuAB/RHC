@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextInput, View, Button } from 'react-native';
+import { TextInput, View, Button , Text} from 'react-native';
 import { observer } from 'mobx-react';
 import DataStore from '../Store/DataStore';
 import styles from '../CSS/css';
@@ -12,7 +12,7 @@ export default class YearsPage extends React.Component{
       
   constructor(props){
     super(props);
-    this.state = {Years:''};
+    this.state = {Years:undefined};
   }
 
   _handlePress = () =>{
@@ -22,6 +22,7 @@ export default class YearsPage extends React.Component{
   }
 
   render(){
+    const val = (this.state.Years == undefined)?<Text></Text>:<View style={{alignContent:'center'}}><Text style={styles.text}>Years: {this.state.Years}</Text></View>;
     return(
       <View
         style={styles.container}>
@@ -30,10 +31,11 @@ export default class YearsPage extends React.Component{
             keyboardType={"numeric"}
             placeholder="Enter number of years"
             onChangeText={(text) => this.setState({Years : parseInt(text)})}/>
-              <Button                
-                style={styles.button}
-                title="Next"
-                onPress={() => this._handlePress()}/>
+          <Button                
+            style={styles.button}
+            title="Next"
+            onPress={() => this._handlePress()}/>
+          {val}  
       </View>
     );
   }

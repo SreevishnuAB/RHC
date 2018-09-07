@@ -13,31 +13,37 @@ export default class HDStrokePage extends React.Component{
 
   constructor(props){
     super(props);
-    this.state = {History:undefined,
-    };
+    this.state = {HisCorDis:undefined};
   }
 
   _handlePress = () => {
     if(this._validateInput()){
-      DataStore.updateHisCorDis(this.state.History);
+      DataStore.updateHisCorDis(this.state.HisCorDis);
       this.props.navigation.navigate('Follow_Up');
     }
   }
   
   _validateInput = () => {
-    if(this.state.History == undefined){
+    if(this.state.HisCorDis == undefined){
       alert("Invalid input");
       return false;
     }
     return true;
   }
 
+  _getLabelHisCorDis = (val,items) => {
+    if(val == 0)
+      return items[0].label;
+    return items[1].label;
+  }
+
+
   render(){
     const items = [
       {label:'No',value:0,},
       {label:'Yes', value:1,},
     ];
-    const val = (this.state.History == undefined)?<Text></Text>:<View style={{alignContent:'center'}}><Text style={styles.text}>History of Coronary Artery Disease / Stroke: {this.state.History}</Text></View>;
+    const val = (this.state.HisCorDis == undefined)?<Text></Text>:<View style={{alignContent:'center'}}><Text style={styles.text}>History of Coronary Artery Disease / Stroke: {this._getLabelHisCorDis(this.state.HisCorDis,items)}</Text></View>;
     return(
       <View
         style={styles.container}>
@@ -45,8 +51,8 @@ export default class HDStrokePage extends React.Component{
             style={{...styles}}
             placeholder={{label:'History of Coronary Artery Disease/Stroke',value:null}}
             items={items}
-            value={this.state.History}
-            onValueChange={(value) => this.setState({History:value})} />
+            value={this.state.HisCorDis}
+            onValueChange={(value) => this.setState({HisCorDis:value})} />
           <Button
             style={styles.button}
             title="Next" 

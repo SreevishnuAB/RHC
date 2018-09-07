@@ -31,6 +31,19 @@ export default class RenInvPage extends React.Component{
     }
   }
 
+  _getLabelRenInv = (val,items) => {
+    switch(val){
+      case 3:
+        return items[3].label;
+      case 2:
+        return items[2].label;
+      case 1:
+        return items[1].label;
+      default:
+        return items[0].label;
+    }
+  }
+
   render(){
     const items = [
       {label:'No',value:0,},
@@ -38,7 +51,7 @@ export default class RenInvPage extends React.Component{
       {label:'Creatinine > 1.6', value:2,},
       {label:'Creatinine > 4', value:3,},
     ];
-    const val = (this.state.RenInv == undefined)?<Text></Text>:<View style={{alignContent:'stretch'}}><Text style={styles.text}>Renal Involvement: {this.state.RenInv}</Text></View>;
+    const val = (this.state.RenInv == undefined)?<Text></Text>:<View style={{alignContent:'stretch'}}><Text style={styles.text}>Renal Involvement: {this._getLabelRenInv(this.state.RenInv,items)}</Text></View>;
     return(
       <View 
         style={styles.container}>

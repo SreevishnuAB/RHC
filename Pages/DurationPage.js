@@ -53,7 +53,7 @@ export default class DurationPage extends React.Component{
       {label:'16 - 20 years', value:1,},
       {label:'> 20 years', value:0.5,},
     ];
-    const val = (this.state.Duration == undefined)?<Text></Text>:<View style={{alignContent:'center'}}><Text style={styles.text}>Duration: {this.state.Duration}</Text></View>;
+    const val = (this.state.Duration == undefined)?<Text></Text>:<View style={{alignContent:'center'}}><Text style={styles.text}>Duration: {this._getLabelDuration(this.state.Duration,items)}</Text></View>;
     return(
       <View
         style={styles.container}>

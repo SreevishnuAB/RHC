@@ -52,7 +52,7 @@ export default class HBA1CPage extends React.Component{
             thumbTintColor='#ffffff'/>
           <View style={{flexDirection:'row',justifyContent:'space-between'}}>
             <Text style={styles.text}>5</Text>
-            <Text style={styles.text}>{parseInt(this.state.HBA1C*10)/10}</Text>
+            <Text style={styles.text}>HBA1C: {parseInt(this.state.HBA1C*10)/10}</Text>
             <Text style={styles.text}>12</Text>
           </View>
           <Button                

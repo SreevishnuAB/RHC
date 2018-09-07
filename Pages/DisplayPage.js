@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RNPickerSelect from 'react-native-picker-select';
 import { observer } from 'mobx-react';
-import { ScrollView , View , TextInput , Text , Button} from 'react-native';
+import {Slider, ScrollView , View , TextInput , Text , Button , Dimensions} from 'react-native';
 import styles from '../CSS/css';
 import DataStore from '../Store/DataStore';
 
@@ -11,6 +11,11 @@ export default class DisplayPage extends React.Component{
     title: 'Input Data',
   };
   
+  constructor(props){
+    super(props);
+    this.state = {SC:DataStore.hlthParams.serchol,HBA1C:DataStore.hlthParams.hba1c};
+  }
+
   render(){
     const items = {
       FollowUp: [
@@ -44,18 +49,34 @@ export default class DisplayPage extends React.Component{
         <ScrollView 
           style={{flex:1,backgroundColor: '#000000',}}
           keyboardDismissMode='on-drag'>
-            <Text style={styles.text}>HBA1C:</Text>
-            <TextInput
-              style={styles.tb}
-              keyboardType={"numeric"}
-              placeholder={DataStore.hlthParams.hba1c.toString()}
-              onChangeText={(text) => DataStore.updateHBA1C(text)}/>
-            <Text style={styles.text}>Serum Cholestrol:</Text>
-            <TextInput
-              style={styles.tb}
-              keyboardType={"numeric"}
-              placeholder={DataStore.hlthParams.serchol.toString()}
-              onChangeText={(text) => DataStore.updateSerChol(text)}/>
+            <Slider
+            style={{width:Dimensions.get('window').width,height:100}}
+            maximumValue={12}
+            minimumValue={5}
+            onValueChange={(value)=>this.setState({HBA1C:value})}
+            onSlidingComplete={()=>DataStore.updateHBA1C(this.state.HBA1C)}
+            step={0.1}
+            value={DataStore.hlthParams.hba1c}
+            thumbTintColor='#ffffff'/>
+            <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+              <Text style={styles.text}>5</Text>
+              <Text style={styles.text}>HBA1C: {this.state.HBA1C}</Text>
+              <Text style={styles.text}>12</Text>
+            </View>
+            <Slider
+              style={{width:Dimensions.get('window').width,height:100}}
+              maximumValue={300}
+              minimumValue={100}
+              onValueChange={(value)=>this.setState({SC:value})}
+              onSlidingComplete={()=>DataStore.updateSerChol(this.state.SC)}
+              step={1}
+              value={this.state.SC}
+              thumbTintColor='#ffffff'/>
+            <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+              <Text style={styles.text}>100</Text>
+              <Text style={styles.text}>Serum Cholestrol: {this.state.SC}</Text>
+              <Text style={styles.text}>300</Text>
+            </View>
             <Text style={styles.text}>Number of years:</Text>
             <TextInput
               style={styles.tb}
