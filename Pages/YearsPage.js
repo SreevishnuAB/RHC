@@ -16,9 +16,13 @@ export default class YearsPage extends React.Component{
   }
 
   _handlePress = () =>{
+    if(this.state.Years == undefined || this.state.Years == 0)
+      alert("Invalid input");
+    else{
     DataStore.updateNoOfYears(this.state.Years);
     DataStore.generateFutureRetina();
     this.props.navigation.navigate('Image');
+    }
   }
 
   render(){
