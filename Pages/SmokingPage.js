@@ -13,11 +13,11 @@ export default class SmokingPage extends React.Component{
 
   constructor(props){
     super(props);
-    this.state = {Smoking:{value:undefined,label:undefined}};
+    this.state = {smoking:{value:undefined,label:undefined}};
   }
 
   _validateInput = () =>{
-    if(this.state.Smoking.value == undefined){
+    if(this.state.smoking.value == undefined){
       alert("Invalid input");
       return false;
     }
@@ -26,7 +26,7 @@ export default class SmokingPage extends React.Component{
 
   _handlePress = () => {
     if(this._validateInput()){
-      DataStore.updateSmoke(this.state.Smoking);
+      DataStore.updateSmoking(this.state.smoking);
       this.props.navigation.navigate('Duration');
     }
   }
@@ -48,7 +48,7 @@ export default class SmokingPage extends React.Component{
       {label:'Yes', value:1,},
       {label:'Related Lung Disease', value:2,},
     ];
-    const val = (this.state.Smoking.value == undefined)?<Text></Text>:<Text style={styles.text}>Smoking: {this.state.Smoking.label}</Text>;
+    const val = (this.state.smoking.value == undefined)?<Text></Text>:<Text style={styles.text}>Smoking: {this.state.smoking.label}</Text>;
     return(
       <View
         style={styles.container}>
@@ -56,8 +56,8 @@ export default class SmokingPage extends React.Component{
             style={{...styles}}
             placeholder={{label:'Smoking',value:null}}
             items={items}
-            value={this.state.Smoking.value}
-            onValueChange={(val) => this.setState({Smoking:{value:val,label:this._getLabelSmoking(val,items)}})} />
+            value={this.state.smoking.value}
+            onValueChange={(val) => this.setState({smoking:{value:val,label:this._getLabelSmoking(val,items)}})} />
           <Button
             style={styles.button}
             title="Next" 

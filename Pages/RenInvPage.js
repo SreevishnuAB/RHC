@@ -13,11 +13,11 @@ export default class RenInvPage extends React.Component{
 
   constructor(props){
     super(props);
-    this.state = {RenInv:{value:undefined,label:undefined}};
+    this.state = {reninv:{value:undefined,label:undefined}};
   }
 
   _validateInput = () =>{
-    if(this.state.RenInv.value == undefined){
+    if(this.state.reninv.value == undefined){
       alert("Invalid input");
       return false;
     }
@@ -26,7 +26,7 @@ export default class RenInvPage extends React.Component{
     
   _handlePress = () => {
     if(this._validateInput()){
-      DataStore.updateRenInv(this.state.RenInv);
+      DataStore.updateRenInv(this.state.reninv);
       this.props.navigation.navigate('Smoking');
     }
   }
@@ -52,7 +52,7 @@ export default class RenInvPage extends React.Component{
       {label:'Creatinine > 4', value:3,},
     ];
 
-    const val = (this.state.RenInv.value == undefined)?<Text></Text>:<Text style={styles.text}>Renal Involvement: {this.state.RenInv.label}</Text>;
+    const val = (this.state.reninv.value == undefined)?<Text></Text>:<Text style={styles.text}>Renal Involvement: {this.state.reninv.label}</Text>;
 
     return(
       <View 
@@ -61,8 +61,8 @@ export default class RenInvPage extends React.Component{
             style={{...styles}}
             placeholder={{label:'Renal Involvement',value:null}}
             items={items}
-            value={this.state.RenInv.value}
-            onValueChange={(val) => this.setState({RenInv:{value:val,label:this._getLabelRenInv(val,items)}})} />
+            value={this.state.reninv.value}
+            onValueChange={(val) => this.setState({reninv:{value:val,label:this._getLabelRenInv(val,items)}})} />
           <Button
             style= {styles.button}
             title="Next"

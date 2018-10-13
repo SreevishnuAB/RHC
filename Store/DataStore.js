@@ -10,9 +10,9 @@ class DataStore{
         hba1c:0,
         serchol:0,
         reninv:{value:0,label:''},
-        smoke:{value:0,label:''},
-        dur:{value:0,label:''},
-        cordis:{value:0,label:''},
+        smoking:{value:0,label:''},
+        duration:{value:0,label:''},
+        hiscordis:{value:0,label:''},
         gfu:{value:0,label:''},
         years:0,
     };
@@ -33,16 +33,16 @@ class DataStore{
         this.hlthParams.reninv = obj;
     }
 
-    updateSmoke(obj){
-        this.hlthParams.smoke = obj;
+    updateSmoking(obj){
+        this.hlthParams.smoking = obj;
     }
 
-    updateDur(obj){
-        this.hlthParams.dur = obj;
+    updateDuration(obj){
+        this.hlthParams.duration = obj;
     }
 
     updateHisCorDis(obj){
-        this.hlthParams.cordis = obj;
+        this.hlthParams.hiscordis = obj;
     }
 
     updateRegFollowUp(obj){
@@ -59,7 +59,11 @@ class DataStore{
 
     generateHBA1CScore(){
         let hba1cVal = this.hlthParams.hba1c;
-        if(hba1cVal > 11) return 6;
+        if(hba1cVal > 15) return 10;
+        else if(hba1cVal > 14) return 9;
+        else if(hba1cVal > 13) return 8;
+        else if(hba1cVal > 12) return 7;
+        else if(hba1cVal > 11) return 6;
         else if(hba1cVal > 10) return 5;
         else if(hba1cVal > 9) return 4;
         else if(hba1cVal > 8) return 3;
@@ -70,7 +74,9 @@ class DataStore{
 
     generateSerCholScore(){
         let sercholVal = this.hlthParams.serchol;
-        if(sercholVal >= 300) return 2.5;
+        if(sercholVal >= 400) return 3.5;
+        else if(sercholVal > 350) return 3;
+        else if(sercholVal > 300) return 2.5;
         else if(sercholVal > 250) return 2;
         else if(sercholVal > 200) return 1.5;
         else if(sercholVal > 150) return 1;
@@ -79,7 +85,7 @@ class DataStore{
     }
 
     generateFutureRetina(){
-        let totalScore = (this.generateHBA1CScore() + this.generateSerCholScore() + this.hlthParams.reninv.value + this.hlthParams.smoke.value + this.hlthParams.dur.value + this.hlthParams.cordis.value + this.hlthParams.gfu.value);
+        let totalScore = (this.generateHBA1CScore() + this.generateSerCholScore() + this.hlthParams.reninv.value + this.hlthParams.smoking.value + this.hlthParams.duration.value + this.hlthParams.hiscordis.value + this.hlthParams.gfu.value);
         let futureScore = totalScore * this.hlthParams.years;
         let finalRetina = (this.currentRetina.image + futureScore > 100)? 100: this.currentRetina.image + futureScore;
         this.updateFutureRetina(parseInt(finalRetina)); 
@@ -93,8 +99,8 @@ decorate(DataStore,{
     updateHBA1C:action,
     updateSerChol:action,
     updateRenInv:action,
-    updateSmoke:action,
-    updateDur:action,
+    updateSmoking:action,
+    updateDuration:action,
     updateHisCorDis:action,
     updateRegFollowUp:action,
     updateImageSelected:action,

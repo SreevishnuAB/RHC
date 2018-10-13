@@ -13,18 +13,18 @@ export default class HDStrokePage extends React.Component{
 
   constructor(props){
     super(props);
-    this.state = {HisCorDis:{value:undefined,label:undefined}};
+    this.state = {hiscordis:{value:undefined,label:undefined}};
   }
 
   _handlePress = () => {
     if(this._validateInput()){
-      DataStore.updateHisCorDis(this.state.HisCorDis);
+      DataStore.updateHisCorDis(this.state.hiscordis);
       this.props.navigation.navigate('Follow_Up');
     }
   }
   
   _validateInput = () => {
-    if(this.state.HisCorDis.value == undefined){
+    if(this.state.hiscordis.value == undefined){
       alert("Invalid input");
       return false;
     }
@@ -43,7 +43,7 @@ export default class HDStrokePage extends React.Component{
       {label:'No',value:0,},
       {label:'Yes', value:1,},
     ];
-    const val = (this.state.HisCorDis.value == undefined)?<Text></Text>:<Text style={styles.text}>History of Coronary Artery Disease / Stroke: {this.state.HisCorDis.label}</Text>;
+    const val = (this.state.hiscordis.value == undefined)?<Text></Text>:<Text style={styles.text}>History of Coronary Artery Disease / Stroke: {this.state.hiscordis.label}</Text>;
     return(
       <View
         style={styles.container}>
@@ -51,8 +51,8 @@ export default class HDStrokePage extends React.Component{
             style={{...styles}}
             placeholder={{label:'History of Coronary Artery Disease/Stroke',value:null}}
             items={items}
-            value={this.state.HisCorDis.value}
-            onValueChange={(val) => this.setState({HisCorDis:{value:val,label:this._getLabelHisCorDis(val,items)}})} />
+            value={this.state.hiscordis.value}
+            onValueChange={(val) => this.setState({hiscordis:{value:val,label:this._getLabelHisCorDis(val,items)}})} />
           <Button
             style={styles.button}
             title="Next" 
@@ -60,8 +60,8 @@ export default class HDStrokePage extends React.Component{
           <Text style={styles.text}>HBA1C: {DataStore.hlthParams.hba1c}</Text>
           <Text style={styles.text}>Serum Cholestrol: {DataStore.hlthParams.serchol}</Text>
           <Text style={styles.text}>Renal Involvement: {DataStore.hlthParams.reninv.label}</Text>
-          <Text style={styles.text}>Smoking: {DataStore.hlthParams.smoke.label}</Text>
-          <Text style={styles.text}>Duration: {DataStore.hlthParams.dur.label}</Text>
+          <Text style={styles.text}>Smoking: {DataStore.hlthParams.smoking.label}</Text>
+          <Text style={styles.text}>Duration: {DataStore.hlthParams.duration.label}</Text>
           {val}
       </View>
     );

@@ -13,18 +13,18 @@ export default class DurationPage extends React.Component{
 
   constructor(props){
     super(props);
-    this.state = {Duration:{value:undefined,label:undefined}};
+    this.state = {duration:{value:undefined,label:undefined}};
   }
 
   _handlePress = () => {
     if(this._validateInput()){
-      DataStore.updateDur(this.state.Duration);
+      DataStore.updateDuration(this.state.duration);
       this.props.navigation.navigate('HDStroke');
     }
   }
 
   _validateInput = () =>{
-    if(this.state.Duration.value == undefined){
+    if(this.state.duration.value == undefined){
       alert("Invalid input");
       return false;
     }
@@ -53,7 +53,7 @@ export default class DurationPage extends React.Component{
       {label:'16 - 20 years', value:1,},
       {label:'> 20 years', value:0.5,},
     ];
-    const val = (this.state.Duration.value == undefined)?<Text></Text>:<Text style={styles.text}>Duration: {this.state.Duration.label}</Text>;
+    const val = (this.state.duration.value == undefined)?<Text></Text>:<Text style={styles.text}>Duration: {this.state.duration.label}</Text>;
     return(
       <View
         style={styles.container}>
@@ -61,8 +61,8 @@ export default class DurationPage extends React.Component{
             style={{...styles}}
             placeholder={{label:'Duration',value:null}}
             items={items}
-            value={this.state.Duration.value}
-            onValueChange={(val) => this.setState({Duration:{value:val,label:this._getLabelDuration(val,items)}})} />
+            value={this.state.duration.value}
+            onValueChange={(val) => this.setState({duration:{value:val,label:this._getLabelDuration(val,items)}})} />
           <Button
             style={styles.button}
             title="Next"
@@ -70,7 +70,7 @@ export default class DurationPage extends React.Component{
           <Text style={styles.text}>HBA1C: {DataStore.hlthParams.hba1c}</Text>
           <Text style={styles.text}>Serum Cholestrol: {DataStore.hlthParams.serchol}</Text>
           <Text style={styles.text}>Renal Involvement: {DataStore.hlthParams.reninv.label}</Text>
-          <Text style={styles.text}>Smoking: {DataStore.hlthParams.smoke.label}</Text>
+          <Text style={styles.text}>Smoking: {DataStore.hlthParams.smoking.label}</Text>
           {val}
       </View>
     );

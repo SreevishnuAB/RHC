@@ -13,7 +13,7 @@ export default class DisplayPage extends React.Component{
   
   constructor(props){
     super(props);
-    this.state = {SC:DataStore.hlthParams.serchol,HBA1C:DataStore.hlthParams.hba1c};
+    this.state = {serchol:DataStore.hlthParams.serchol,hba1c:DataStore.hlthParams.hba1c};
   }
 
   render(){
@@ -51,31 +51,35 @@ export default class DisplayPage extends React.Component{
           keyboardDismissMode='on-drag'>
             <Slider
             style={{width:Dimensions.get('window').width,height:100}}
-            maximumValue={12}
+            maximumValue={16}
             minimumValue={5}
-            onValueChange={(value)=>this.setState({HBA1C:(parseInt(value*10))/10})}
-            onSlidingComplete={()=>DataStore.updateHBA1C(this.state.HBA1C)}
+            onValueChange={(value)=>this.setState({hba1c:(parseInt(value*10))/10})}
+            onSlidingComplete={()=>DataStore.updateHBA1C(this.state.hba1c)}
             step={0.1}
             value={DataStore.hlthParams.hba1c}
-            thumbTintColor='#ffffff'/>
+            thumbTintColor='#ffffff'
+            maximumTrackTintColor='#ffffff'
+            />
             <View style={{flexDirection:'row',justifyContent:'space-between'}}>
               <Text style={styles.text}>5</Text>
-              <Text style={styles.text}>HBA1C: {this.state.HBA1C}</Text>
-              <Text style={styles.text}>12</Text>
+              <Text style={styles.text}>HBA1C: {this.state.hba1c}</Text>
+              <Text style={styles.text}>16</Text>
             </View>
             <Slider
               style={{width:Dimensions.get('window').width,height:100}}
-              maximumValue={300}
+              maximumValue={400}
               minimumValue={100}
-              onValueChange={(value)=>this.setState({SC:value})}
-              onSlidingComplete={()=>DataStore.updateSerChol(this.state.SC)}
+              onValueChange={(value)=>this.setState({serchol:value})}
+              onSlidingComplete={()=>DataStore.updateSerChol(this.state.serchol)}
               step={1}
-              value={this.state.SC}
-              thumbTintColor='#ffffff'/>
+              value={this.state.serchol}
+              thumbTintColor='#ffffff'
+              maximumTrackTintColor='#ffffff'
+              />
             <View style={{flexDirection:'row',justifyContent:'space-between'}}>
               <Text style={styles.text}>100</Text>
-              <Text style={styles.text}>Serum Cholestrol: {this.state.SC}</Text>
-              <Text style={styles.text}>300</Text>
+              <Text style={styles.text}>Serum Cholestrol: {this.state.serchol}</Text>
+              <Text style={styles.text}>400</Text>
             </View>
             <Text style={styles.text}>Number of years:</Text>
             <TextInput
@@ -101,7 +105,7 @@ export default class DisplayPage extends React.Component{
                 value:null,
               }}
               items={items.Smoking}
-              value={DataStore.hlthParams.smoke.value}
+              value={DataStore.hlthParams.smoking.value}
               onValueChange={(val) => DataStore.updateSmoke({value:val,label:undefined})} />
             <Text style={styles.text}>Duration:</Text>
             <RNPickerSelect 
@@ -111,7 +115,7 @@ export default class DisplayPage extends React.Component{
                 value:null,
               }}
               items={items.Duration}
-              value={DataStore.hlthParams.dur.value}
+              value={DataStore.hlthParams.duration.value}
               onValueChange={(val) => DataStore.updateDur({value:val,label:undefined})} />
             <Text style={styles.text}>History of Coronary Artery Disease/Stroke:</Text>
             <RNPickerSelect 
@@ -121,7 +125,7 @@ export default class DisplayPage extends React.Component{
                 value:null,
               }}
               items={items.HDStroke}
-              value={DataStore.hlthParams.cordis.value}
+              value={DataStore.hlthParams.hiscordis.value}
               onValueChange={(val) => DataStore.updateHisCorDis({value:val,label:''})} />
             <Text style={styles.text}>Good Follow-up, Once in 3 Months:</Text>
             <RNPickerSelect 

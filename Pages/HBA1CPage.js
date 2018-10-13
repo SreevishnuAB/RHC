@@ -12,11 +12,11 @@ export default class HBA1CPage extends React.Component{
   
   constructor(props){
     super(props);
-    this.state = {HBA1C:5,view:false};
+    this.state = {hba1c:5,view:false};
   }
 
   _validateInput = () =>{
-    if(this.state.HBA1C == '' || this.state.HBA1C<5){
+    if(this.state.hba1c == '' || this.state.HBA1C<5){
       alert("Invalid input");
       return false;
     }
@@ -31,7 +31,7 @@ export default class HBA1CPage extends React.Component{
   }
 
   render(){
-    const val = (!this.state.view)?<Text></Text>:<Text style={styles.text}>HBA1C: {this.state.HBA1C}</Text>;
+    const val = (!this.state.view)?<Text></Text>:<Text style={styles.text}>HBA1C: {DataStore.hlthParams.hba1c}</Text>;
     return(
       <View
         style={styles.container}>
@@ -44,20 +44,22 @@ export default class HBA1CPage extends React.Component{
 */}
           <Slider
             style={{width:Dimensions.get('window').width,height:100}}
-            maximumValue={12}
+            maximumValue={16}
             minimumValue={5}
-            onValueChange={(value)=>this.setState({HBA1C:value})}
+            onValueChange={(value)=>this.setState({hba1c:value})}
             onSlidingComplete={()=>{
               this.setState({view:true});
-              DataStore.updateHBA1C(parseInt(this.state.HBA1C*10)/10)
+              DataStore.updateHBA1C(parseInt(this.state.hba1c*10)/10)
             }}
             step={0.1}
-            value={this.state.HBA1C}
-            thumbTintColor='#ffffff'/>
+            value={this.state.hba1c}
+            thumbTintColor='#ffffff'
+            maximumTrackTintColor='#ffffff'
+            />
           <View style={{flexDirection:'row',justifyContent:'space-between'}}>
             <Text style={styles.text}>5</Text>
-            <Text style={styles.text}>HBA1C: {parseInt(this.state.HBA1C*10)/10}</Text>
-            <Text style={styles.text}>12</Text>
+            <Text style={styles.text}>HBA1C: {parseInt(this.state.hba1c*10)/10}</Text>
+            <Text style={styles.text}>16</Text>
           </View>
           <Button                
             style={styles.button}

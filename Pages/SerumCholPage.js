@@ -12,7 +12,7 @@ export default class SerumCholPage extends React.Component{
 
   constructor(props){
     super(props);
-    this.state = {SC:100,view:false};
+    this.state = {serchol:100,view:false};
   }
 
   _handlePress = () => {
@@ -22,7 +22,7 @@ export default class SerumCholPage extends React.Component{
   }
 
   _validateInput = () =>{
-    if(this.state.SC == ''){
+    if(this.state.serchol == ''){
       alert("Invalid input");
       return false;
     }
@@ -30,7 +30,7 @@ export default class SerumCholPage extends React.Component{
   }
     
   render(){
-    const val = (!this.state.view)?<Text></Text>:<Text style={styles.text}>Serum Cholestrol: {this.state.SC}</Text>;
+    const val = (!this.state.view)?<Text></Text>:<Text style={styles.text}>Serum Cholestrol: {DataStore.hlthParams.serchol}</Text>;
     return(
       <View
         style={styles.container}>
@@ -43,19 +43,21 @@ export default class SerumCholPage extends React.Component{
 */}
           <Slider
             style={{width:Dimensions.get('window').width,height:100}}
-            maximumValue={300}
+            maximumValue={400}
             minimumValue={100}
-            onValueChange={(value)=>this.setState({SC:value})}
+            onValueChange={(value)=>this.setState({serchol:value})}
             onSlidingComplete={()=>{
               this.setState({view:true});
-              DataStore.updateSerChol(this.state.SC)}}
+              DataStore.updateSerChol(this.state.serchol)}}
             step={1}
-            value={this.state.SC}
-            thumbTintColor='#ffffff'/>
+            value={this.state.serchol}
+            thumbTintColor='#ffffff'
+            maximumTrackTintColor='#ffffff'
+            />
           <View style={{flexDirection:'row',justifyContent:'space-between'}}>
             <Text style={styles.text}>100</Text>
-            <Text style={styles.text}>Serum Cholestrol: {this.state.SC}</Text>
-            <Text style={styles.text}>300</Text>
+            <Text style={styles.text}>Serum Cholestrol: {this.state.serchol}</Text>
+            <Text style={styles.text}>400</Text>
           </View>
           <Button
             style={styles.button}
