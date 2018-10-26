@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RNPickerSelect from 'react-native-picker-select';
 import { observer } from 'mobx-react';
-import { ScrollView , View , TextInput , Text , Button} from 'react-native';
+import {Slider, ScrollView , View , TextInput , Text , Button , Dimensions} from 'react-native';
 import styles from '../CSS/css';
 import DataStore from '../Store/DataStore';
 
@@ -11,6 +11,11 @@ export default class DisplayPage extends React.Component{
     title: 'Input Data',
   };
   
+  constructor(props){
+    super(props);
+    this.state = {serchol:DataStore.hlthParams.serchol,hba1c:DataStore.hlthParams.hba1c};
+  }
+
   render(){
     const items = {
       FollowUp: [
@@ -44,18 +49,38 @@ export default class DisplayPage extends React.Component{
         <ScrollView 
           style={{flex:1,backgroundColor: '#000000',}}
           keyboardDismissMode='on-drag'>
-            <Text style={styles.text}>HBA1C:</Text>
-            <TextInput
-              style={styles.tb}
-              keyboardType={"numeric"}
-              placeholder={DataStore.hlthParams.hba1c.toString()}
-              onChangeText={(text) => DataStore.updateHBA1C(text)}/>
-            <Text style={styles.text}>Serum Cholestrol:</Text>
-            <TextInput
-              style={styles.tb}
-              keyboardType={"numeric"}
-              placeholder={DataStore.hlthParams.serchol.toString()}
-              onChangeText={(text) => DataStore.updateSerChol(text)}/>
+            <Slider
+            style={{width:Dimensions.get('window').width,height:100}}
+            maximumValue={16}
+            minimumValue={5}
+            onValueChange={(value)=>this.setState({hba1c:(parseInt(value*10))/10})}
+            onSlidingComplete={()=>DataStore.updateHBA1C(this.state.hba1c)}
+            step={0.1}
+            value={DataStore.hlthParams.hba1c}
+            thumbTintColor='#ffffff'
+            maximumTrackTintColor='#ffffff'
+            />
+            <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+              <Text style={styles.text}>5</Text>
+              <Text style={styles.text}>HBA1C: {this.state.hba1c}</Text>
+              <Text style={styles.text}>16</Text>
+            </View>
+            <Slider
+              style={{width:Dimensions.get('window').width,height:100}}
+              maximumValue={400}
+              minimumValue={100}
+              onValueChange={(value)=>this.setState({serchol:value})}
+              onSlidingComplete={()=>DataStore.updateSerChol(this.state.serchol)}
+              step={1}
+              value={this.state.serchol}
+              thumbTintColor='#ffffff'
+              maximumTrackTintColor='#ffffff'
+              />
+            <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+              <Text style={styles.text}>100</Text>
+              <Text style={styles.text}>Serum Cholestrol: {this.state.serchol}</Text>
+              <Text style={styles.text}>400</Text>
+            </View>
             <Text style={styles.text}>Number of years:</Text>
             <TextInput
               style={styles.tb}
@@ -70,8 +95,8 @@ export default class DisplayPage extends React.Component{
                 value:null,
               }}
               items={items.RenInv}
-              value={DataStore.hlthParams.reninv}
-              onValueChange={(value) => DataStore.updateRenInv(value)} />
+              value={DataStore.hlthParams.reninv.value}
+              onValueChange={(val) => DataStore.updateRenInv({value:val,label:undefined})} />
             <Text style={styles.text}>Smoking:</Text>
             <RNPickerSelect 
               style={{...styles}}
@@ -80,8 +105,8 @@ export default class DisplayPage extends React.Component{
                 value:null,
               }}
               items={items.Smoking}
-              value={DataStore.hlthParams.smoke}
-              onValueChange={(value) => DataStore.updateSmoke(value)} />
+              value={DataStore.hlthParams.smoking.value}
+              onValueChange={(val) => DataStore.updateSmoke({value:val,label:undefined})} />
             <Text style={styles.text}>Duration:</Text>
             <RNPickerSelect 
               style={{...styles}}
@@ -90,8 +115,8 @@ export default class DisplayPage extends React.Component{
                 value:null,
               }}
               items={items.Duration}
-              value={DataStore.hlthParams.dur}
-              onValueChange={(value) => DataStore.updateDur(value)} />
+              value={DataStore.hlthParams.duration.value}
+              onValueChange={(val) => DataStore.updateDur({value:val,label:undefined})} />
             <Text style={styles.text}>History of Coronary Artery Disease/Stroke:</Text>
             <RNPickerSelect 
               style={{...styles}}
@@ -100,8 +125,8 @@ export default class DisplayPage extends React.Component{
                 value:null,
               }}
               items={items.HDStroke}
-              value={DataStore.hlthParams.cordis}
-              onValueChange={(value) => DataStore.updateHisCorDis(value)} />
+              value={DataStore.hlthParams.hiscordis.value}
+              onValueChange={(val) => DataStore.updateHisCorDis({value:val,label:''})} />
             <Text style={styles.text}>Good Follow-up, Once in 3 Months:</Text>
             <RNPickerSelect 
               style={{...styles}}
@@ -110,8 +135,8 @@ export default class DisplayPage extends React.Component{
                 value:null,
               }}
               items={items.FollowUp}
-              value={DataStore.hlthParams.gfu}
-              onValueChange={(value) => DataStore.updateRegFollowUp(value)} />
+              value={DataStore.hlthParams.gfu.value}
+              onValueChange={(val) => DataStore.updateRegFollowUp({value:val,label:''})} />
 {/*          <Text style={styles.touchable}>Image Selected: {DataStore.imageSelected.id}</Text>          
           <Button
             style={styles.button}

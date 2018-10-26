@@ -13,11 +13,11 @@ export default class RenInvPage extends React.Component{
 
   constructor(props){
     super(props);
-    this.state = {RenInv:undefined};
+    this.state = {reninv:{value:undefined,label:undefined}};
   }
 
   _validateInput = () =>{
-    if(this.state.RenInv == undefined){
+    if(this.state.reninv.value == undefined){
       alert("Invalid input");
       return false;
     }
@@ -26,8 +26,21 @@ export default class RenInvPage extends React.Component{
     
   _handlePress = () => {
     if(this._validateInput()){
-      DataStore.updateRenInv(this.state.RenInv);
+      DataStore.updateRenInv(this.state.reninv);
       this.props.navigation.navigate('Smoking');
+    }
+  }
+
+  _getLabelRenInv = (val,items) => {
+    switch(val){
+      case 3:
+        return items[3].label;
+      case 2:
+        return items[2].label;
+      case 1:
+        return items[1].label;
+      default:
+        return items[0].label;
     }
   }
 
@@ -38,7 +51,9 @@ export default class RenInvPage extends React.Component{
       {label:'Creatinine > 1.6', value:2,},
       {label:'Creatinine > 4', value:3,},
     ];
-    const val = (this.state.RenInv == undefined)?<Text></Text>:<View style={{alignContent:'stretch'}}><Text style={styles.text}>Renal Involvement: {this.state.RenInv}</Text></View>;
+
+    const val = (this.state.reninv.value == undefined)?<Text></Text>:<Text style={styles.text}>Renal Involvement: {this.state.reninv.label}</Text>;
+
     return(
       <View 
         style={styles.container}>
@@ -46,13 +61,15 @@ export default class RenInvPage extends React.Component{
             style={{...styles}}
             placeholder={{label:'Renal Involvement',value:null}}
             items={items}
-            value={this.state.RenInv}
-            onValueChange={(value) => this.setState({RenInv:value})} />
+            value={this.state.reninv.value}
+            onValueChange={(val) => this.setState({reninv:{value:val,label:this._getLabelRenInv(val,items)}})} />
           <Button
             style= {styles.button}
             title="Next"
             onPress={() => this._handlePress()}/>
-            {val}
+          <Text style={styles.text}>HBA1C: {DataStore.hlthParams.hba1c}</Text>
+          <Text style={styles.text}>Serum Cholestrol: {DataStore.hlthParams.serchol}</Text>
+          {val}
       </View>
     );
   }

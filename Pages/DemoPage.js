@@ -36,7 +36,8 @@ export default class DemoPage extends React.Component{
   render() {
     const items=[
       {label:"Current Retina",value:DataStore.currentRetina.image},
-      {label:"Vision",value:100}
+      {label:"Current Vision",value:99},
+      {label:"Future Vision", value:100}
     ];
 
     const img= (

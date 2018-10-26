@@ -13,11 +13,11 @@ export default class SmokingPage extends React.Component{
 
   constructor(props){
     super(props);
-    this.state = {Smoking:undefined};
+    this.state = {smoking:{value:undefined,label:undefined}};
   }
 
   _validateInput = () =>{
-    if(this.state.Smoking == undefined){
+    if(this.state.smoking.value == undefined){
       alert("Invalid input");
       return false;
     }
@@ -26,8 +26,19 @@ export default class SmokingPage extends React.Component{
 
   _handlePress = () => {
     if(this._validateInput()){
-      DataStore.updateSmoke(this.state.Smoking);
+      DataStore.updateSmoking(this.state.smoking);
       this.props.navigation.navigate('Duration');
+    }
+  }
+
+  _getLabelSmoking = (val,items) => {
+    switch(val){
+      case 2:
+        return items[2].label;
+      case 1:
+        return items[1].label;
+      default:
+        return items[0].label;
     }
   }
 
@@ -37,7 +48,7 @@ export default class SmokingPage extends React.Component{
       {label:'Yes', value:1,},
       {label:'Related Lung Disease', value:2,},
     ];
-    const val = (this.state.Smoking == undefined)?<Text></Text>:<View style={{alignContent:'center'}}><Text style={styles.text}>Smoking: {this.state.Smoking}</Text></View>;
+    const val = (this.state.smoking.value == undefined)?<Text></Text>:<Text style={styles.text}>Smoking: {this.state.smoking.label}</Text>;
     return(
       <View
         style={styles.container}>
@@ -45,13 +56,16 @@ export default class SmokingPage extends React.Component{
             style={{...styles}}
             placeholder={{label:'Smoking',value:null}}
             items={items}
-            value={this.state.Smoking}
-            onValueChange={(value) => this.setState({Smoking:value})} />
+            value={this.state.smoking.value}
+            onValueChange={(val) => this.setState({smoking:{value:val,label:this._getLabelSmoking(val,items)}})} />
           <Button
             style={styles.button}
             title="Next" 
             onPress={() => {this._handlePress()}}/>
-            {val}
+          <Text style={styles.text}>HBA1C: {DataStore.hlthParams.hba1c}</Text>
+          <Text style={styles.text}>Serum Cholestrol: {DataStore.hlthParams.serchol}</Text>
+          <Text style={styles.text}>Renal Involvement: {DataStore.hlthParams.reninv.label}</Text>
+          {val}
       </View>
     );
   }

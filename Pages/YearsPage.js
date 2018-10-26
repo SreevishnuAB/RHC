@@ -16,8 +16,13 @@ export default class YearsPage extends React.Component{
   }
 
   _handlePress = () =>{
+    if(this.state.Years == undefined || this.state.Years == 0)
+      alert("Invalid input");
+    else{
     DataStore.updateNoOfYears(this.state.Years);
+    DataStore.generateFutureRetina();
     this.props.navigation.navigate('Image');
+    }
   }
 
   render(){
@@ -34,8 +39,15 @@ export default class YearsPage extends React.Component{
             style={styles.button}
             title="Next"
             onPress={() => this._handlePress()}/>
-            {val}
-        </View>
+                    <Text style={styles.text}>HBA1C: {DataStore.hlthParams.hba1c}</Text>
+          <Text style={styles.text}>Serum Cholestrol: {DataStore.hlthParams.serchol}</Text>
+          <Text style={styles.text}>Renal Involvement: {DataStore.hlthParams.reninv.label}</Text>
+          <Text style={styles.text}>Smoking: {DataStore.hlthParams.smoking.label}</Text>
+          <Text style={styles.text}>Duration: {DataStore.hlthParams.duration.label}</Text>
+          <Text style={styles.text}>History of Coronary Artery Disease/Stroke: {DataStore.hlthParams.hiscordis.label}</Text>
+          <Text style={styles.text}>Good Follow-Up, Once in 3 Months: {DataStore.hlthParams.gfu.label}</Text>
+          {val}  
+      </View>
     );
   }
 }
