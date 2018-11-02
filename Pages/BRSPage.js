@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity , Image , Dimensions , Modal } from 'react-native';
+import { Alert, View, TouchableOpacity , Image , Dimensions , Modal , Text } from 'react-native';
 import GridView from 'react-native-super-grid';
 import ImageZoom from 'react-native-image-pan-zoom';
 import { observer } from 'mobx-react';
@@ -14,7 +14,17 @@ export default class BRSPage extends React.Component{
 
   constructor(props){
     super(props);
-    this.state = {modalVisible: false, imgId:''};
+    this.state = {modalVisible: false, imgId:'', isReady:false};
+  }
+
+  componentWillMount(){
+    this._fetchImages();
+    Alert.alert("Warning!","Make sure you have an active internet connection",[{text: "OK",onPress:()=>{this.setState({isReady:true});}}]);
+  }
+
+  _fetchImages = () => {
+    for(i=1;i<=100;i++)
+      Image.prefetch('https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+i+'.jpg');
   }
 
   _setModalVisible = (visible) => {
@@ -31,6 +41,7 @@ export default class BRSPage extends React.Component{
       return {id: (i+1), src: 'https://res.cloudinary.com/sv22/image/upload/v1533932127/'+(i+1)+'.jpg' }
       }
     );
+    if(this.state.isReady)
     return(
       <View>
         <GridView
@@ -72,5 +83,6 @@ export default class BRSPage extends React.Component{
         </Modal>
       </View>
     );
+    return(<View style={styles.container}></View>);
   }
 }

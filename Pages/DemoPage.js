@@ -15,7 +15,11 @@ export default class DemoPage extends React.Component{
   constructor(props){
     super(props);
     DataStore.generateFutureRetina();
-    this.state = {imgNum:DataStore.futureRetina.image,url:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+DataStore.futureRetina.image+'.jpg',modalVisible:false};
+    this.state = {futvis:parseInt(Math.random()*100),curvis:parseInt(Math.random()*100),imgNum:DataStore.futureRetina.image,url:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+DataStore.futureRetina.image+'.jpg',modalVisible:false};
+  }
+  componentWillMount(){
+    for(i=1;i<=100;i++)
+      Image.prefetch("https://res.cloudinary.com/praveenpi/image/upload/v1524920749/"+i+".jpg");
   }
 
   _setModalVisible = (visible) => {
@@ -36,8 +40,8 @@ export default class DemoPage extends React.Component{
   render() {
     const items=[
       {label:"Current Retina",value:DataStore.currentRetina.image},
-      {label:"Current Vision",value:99},
-      {label:"Future Vision", value:100}
+      {label:"Current Vision",value:this.state.curvis},
+      {label:"Future Vision", value:this.state.futvis}
     ];
 
     const img= (
