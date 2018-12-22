@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity , Image , Dimensions , Modal } from 'react-native';
+import { View, TouchableOpacity , Image , Dimensions , Modal , NetInfo} from 'react-native';
 import GridView from 'react-native-super-grid';
 import ImageZoom from 'react-native-image-pan-zoom';
 import { observer } from 'mobx-react';
 import DataStore from '../Store/DataStore';
 import styles from '../CSS/css';
+import OfflineNotice from './Notification/OfllineNotice';
 
 @observer
 export default class BRSPage extends React.Component{
@@ -14,7 +15,19 @@ export default class BRSPage extends React.Component{
 
   constructor(props){
     super(props);
-    this.state = {modalVisible: false, imgId:''};
+    this.state = {modalVisible: false, imgId:'',isConnected:true};
+  }
+
+  componentDidMount(){
+    NetInfo.isConnected.addEventListener('connectionChange',this.handleConnectivityChange);
+  }
+
+  componentWillUnmount(){
+    NetInfo.isConnected.removeEventListener('connectionChange',this.handleConnectivityChange);
+  }
+
+  handleConnectivityChange = (isConnected) => {
+    this.setState({isConnected});
   }
 
   _setModalVisible = (visible) => {
@@ -31,46 +44,49 @@ export default class BRSPage extends React.Component{
       return {id: (i+1), src: 'https://res.cloudinary.com/sv22/image/upload/v1533932127/'+(i+1)+'.jpg' }
       }
     );
-    return(
-      <View>
-        <GridView
-          style={{backgroundColor:'#000000'}}
-          horizontal={true}
-          itemDimension={95}
-          items={items}
-          spacing={7}
-          renderItem={(item) => {
-            return(
-              <TouchableOpacity
-                onPress={()=>{this._handlePress(item.id)}}
-                onLongPress={() => {
-                  this.setState({imgId:item.id})
-                  this._setModalVisible(!this.state.modalVisible);
-                }}>
+//    console.log(this.state.isConnected);
+    if(this.state.isConnected)
+      return(
+        <View>
+          <GridView
+            style={{backgroundColor:'#000000'}}
+            horizontal={true}
+            itemDimension={95}
+            items={items}
+            spacing={7}
+            renderItem={(item) => {
+              return(
+                <TouchableOpacity
+                  onPress={()=>{this._handlePress(item.id)}}
+                  onLongPress={() => {
+                    this.setState({imgId:item.id})
+                    this._setModalVisible(!this.state.modalVisible);
+                  }}>
                   <Image
                     style={styles.thumbs}
                     source={{uri:item.src}}/>  
-              </TouchableOpacity>
-            );
-          }}/>
-        <Modal
-          animationType="fade"
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {this._setModalVisible(!this.state.modalVisible)}}>
-            <View style={{backgroundColor:'#000000'}}>
-              <ImageZoom
-                cropWidth={Dimensions.get('window').width}
-                cropHeight={Dimensions.get('window').height}
-                imageWidth={Dimensions.get('window').width}
-                imageHeight={Dimensions.get('window').width}>
-                  <Image
-                    style={styles.images}
-                    source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+this.state.imgId+'.jpg'}}/>
-              </ImageZoom>
-            </View>
-        </Modal>
-      </View>
-    );
+                </TouchableOpacity>
+              );
+            }}/>
+          <Modal
+            animationType="fade"
+            transparent={false}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {this._setModalVisible(!this.state.modalVisible)}}>
+              <View style={{backgroundColor:'#000000'}}>
+                <ImageZoom
+                  cropWidth={Dimensions.get('window').width}
+                  cropHeight={Dimensions.get('window').height}
+                  imageWidth={Dimensions.get('window').width}
+                  imageHeight={Dimensions.get('window').width}>
+                    <Image
+                      style={styles.images}
+                      source={{uri:'https://res.cloudinary.com/praveenpi/image/upload/v1524920749/'+this.state.imgId+'.jpg'}}/>
+                </ImageZoom>
+              </View>
+          </Modal>
+        </View>
+      );
+    return <OfflineNotice/>;  
+    }
   }
-}

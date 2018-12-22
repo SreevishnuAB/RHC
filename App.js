@@ -11,7 +11,7 @@ import DurationPage from './Pages/DurationPage';
 import HDStrokePage from './Pages/HDStrokePage';
 import FollowUpPage from './Pages/FollowUpPage';
 import DisplayPage from './Pages/DisplayPage';
-import YearsPage from './Pages/YearsPage'
+import YearsPage from './Pages/YearsPage';
 
 const Root = createStackNavigator({
   BRS: BRSPage,
@@ -39,7 +39,7 @@ const Root = createStackNavigator({
 
 export default class App extends React.Component {
   render(){
-  return <Root/>;
+    return <Root/>;
   }
 }
 
